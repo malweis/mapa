@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,9 +11,23 @@ function Register() {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleDateChange = (e) => {
+    const inputDate = e.target.value;
+
+    // Get the current date
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (inputDate > currentDate) {
+      setSelectedDate(currentDate);
+    } else {
+      setSelectedDate(inputDate);
+    }
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -69,14 +84,14 @@ function Register() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center register border-2 border-red-500">
+    <div className="flex flex-col justify-center items-center register p-5">
     <form
         autoComplete="off"
         className="w-full max-w-[600px] p-10 bg-white rounded-lg shadow"
         aria-label="signup-form"
         onSubmit={handleSubmit}
       >
-        <h2 className="mb-10 text-3xl font-bold text-center">Sign Up Form</h2>
+        <h2 className="mb-10 text-3xl font-bold text-center">Registro</h2>
 
         <div className="flex flex-col items-start mb-5 gap-y-3">
           <label
@@ -171,7 +186,7 @@ function Register() {
             name='email'
             type="email"
             className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-            placeholder="Enter your email address..."
+            placeholder="Ingresa tu correo..."
             value={email}
             onChange={handleEmailChange}
             onBlur={validateEmail}
@@ -187,7 +202,7 @@ function Register() {
               type={showPassword ? "text" : "password"}
               name="password"
               className="w-full p-4 pr-12 transition-all bg-transparent border rounded-lg outline-none border-slate-200 focus:border-blue-500"
-              placeholder="Enter your password"
+              placeholder="Ingresa tu contraseña"
               value={password}
               onChange={handlePasswordChange}
               onBlur={validatePassword}
@@ -235,7 +250,7 @@ function Register() {
               type={showPassword ? "text" : "password"}
               name="confirmPassword"
               className="w-full p-4 pr-12 transition-all bg-transparent border rounded-lg outline-none border-slate-200 focus:border-blue-500"
-              placeholder="Enter your password"
+              placeholder="Repite tu constraseña"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
               onBlur={validateConfirmPassword}
@@ -255,11 +270,8 @@ function Register() {
         </div>
 
         <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label
-            htmlFor="Fecha"
-            className="text-sm font-medium cursor-pointer"
-          >
-            Fecha
+          <label htmlFor="Fecha" className="text-sm font-medium cursor-pointer">
+            Fecha de nacimiento
           </label>
           <input
             id="Fecha"
@@ -267,20 +279,23 @@ function Register() {
             type="date"
             className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
             placeholder="Ingresa tus apellidos"
+            value={selectedDate}
+            onChange={handleDateChange}
+            max={new Date().toISOString().split('T')[0]} // Set the max attribute to the current date
           />
         </div>
         
         <div className="flex items-center justify-end mb-5 text-slate-400">
-          <p>Already have an account?</p>
-          <a href="#" className="text-blue-500 underline">
-            Sign In
-          </a>
+          <p>¿Ya tienes una cuenta?</p>
+          <Link href="#" className="text-blue-500 underline">
+            Inicia sesion
+          </Link>
         </div>
         <button
           type="submit"
           className="inline-flex w-full items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg h-[60px]"
         >
-          Create an account
+          Crear la cuenta
         </button>
       </form>
     </div>

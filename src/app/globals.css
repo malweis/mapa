@@ -37,7 +37,7 @@ body, html {
   transition: 0.5s;
 }
 
-.content, .info, .data, .card, .acordeon, .footer, .mapa, .mainer{
+.content, .info, .data, .card, .acordeon, .footer, .mapa, .mainer, .login, .register{
   grid-area: main;
   text-align: center;
 

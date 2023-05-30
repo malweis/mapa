@@ -55,7 +55,7 @@ function NewCertificado() {
       };
 
   return (
-    <div className='newcert flex justify-center items-center border-2 border-red-500'>
+    <div className='newcert flex justify-center items-center'>
        <form
          autoComplete="off"
          className="w-full max-w-[600px] p-10 bg-white rounded-lg shadow"

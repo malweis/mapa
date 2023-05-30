@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, header }) {
   return (
     <html lang="en">
       <head>
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <div className='main h-full w-full'>
-          <Header/>
+          {header}
           {children}
           
         </div>

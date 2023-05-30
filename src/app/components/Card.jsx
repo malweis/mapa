@@ -39,7 +39,7 @@ const Card = ({ record }) => {
   const bloodTypeImage = getBloodTypeImage(record.tipo_sangre);
   
   return (
-    <div className="w-[300px] h-[400px] bg-white text-black flex flex-col justify-between rounded-lg p-4 " key={record.id}>
+    <div className="w-[300px] h-[400px] bg-white text-black flex flex-col justify-between rounded-lg p-4 border-2 border-red-600"  key={record.id}>
       <div className="flex justify-between">
         <div className="flex-1 font-bold" id="bold-title">{record.nombre_apellido_donatario}</div>
         <div id="basura">

@@ -4,8 +4,8 @@ import Link from "next/link";
 function Login() {
   return (
     <>
-      <div className="w-full h-screen flex flex-col items-center justify-center login bg-indigo-100">
-        <form className="w-full md:w-1/3 rounded-lg">
+      <div className="w-full h-screen flex flex-col items-center justify-center login bg-white">
+        <form className="w-full md:w-1/3 rounded-lg border-2 border-red-600">
           <div>Donacion de sangre</div>
           <div className="flex font-bold justify-center mt-6">
             <img
@@ -13,13 +13,13 @@ function Login() {
               src="https://dummyimage.com/64x64"
             />
           </div>
-          <h2 className="text-2xl text-center text-gray-200 mb-8">Login</h2>
+          <h2 className="text-2xl text-center text-gray-200 mb-8">Iniciar sesión</h2>
           <div className="px-12 pb-10">
             <div className="w-full mb-2">
               <div className="flex items-center">
                 <input
                   type="email"
-                  placeholder="Email Address"
+                  placeholder="Correo electronico"
                   className="
                       w-full
                       border
@@ -36,7 +36,7 @@ function Login() {
               <div className="flex items-center">
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   className="
                       w-full
                       border
@@ -56,7 +56,7 @@ function Login() {
                   py-2
                   mt-8
                   rounded-full
-                  bg-blue-400
+                  bg-red-600
                   text-gray-100
                   focus:outline-none
                 "
@@ -65,8 +65,8 @@ function Login() {
             </button>
           </div>
         </form>
-        <div><Link href={'/Sign-up'}>¿Nuevo en el sitio? Registrate!</Link></div>
-        <div><Link href={'/Recover'}>¿Olvidaste tu contraseña?</Link></div>
+        <div>¿Nuevo en el sitio? <Link className="text-blue-500" href={'/Sign-up'}> ¡Registrate!</Link></div>
+        <div><Link href={'/Recover'} className="text-blue-500">¿Olvidaste tu contraseña?</Link></div>
       </div>
     </>
   );

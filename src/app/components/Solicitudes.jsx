@@ -45,7 +45,7 @@ const Solicitudes = () => {
   };
 
   return (
-    <div className=" w-screen h-full bg-red-600 grid place-items-center gap-6 p-8">
+    <div className=" w-screen h-full bg-white grid place-items-center gap-6 p-8">
       <label className='flex  gap-4'>
         <div className="flex justify-center items-center " id="checks">
           <input
@@ -57,14 +57,14 @@ const Solicitudes = () => {
           />
           <label
             htmlFor="choose-me"
-            className="select-none cursor-pointer rounded-lg border-2 border-gray-200
-            px-8 py-4  h-[60px] font-bold text-gray-200 transition-colors duration-200 ease-in-out
+            className="select-none cursor-pointer rounded-lg border-2 border-red-600
+            px-8 py-4  h-[60px] font-bold text--red-600 transition-colors duration-200 ease-in-out
               peer-checked:bg-white peer-checked:text-gray-900 peer-checked:border-gray-200"
           >
             Ver mis donaciones
           </label>
         </div>
-        <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white border-2 border-white rounded-lg h-[60px]" href={'/Solicitud-nueva'}>
+        <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-black border-2 border-red-600 rounded-lg h-[60px]" href={'/Solicitud-nueva'}>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

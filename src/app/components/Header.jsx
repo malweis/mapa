@@ -42,7 +42,7 @@ function Header() {
         </nav>
         <CustomButton
       bgColor="bg-white"
-      textColor="text-blue-500"
+      textColor="text-red-600"
       lineColor="border-black"
       sideImage={  <svg
         xmlns="http://www.w3.org/2000/svg"

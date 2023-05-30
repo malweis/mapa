@@ -96,7 +96,8 @@ nav > ul >li > a{
   }
 .heads{
   grid-area: header;
-  background-color: #1974E5;
+  background-color: #dc2626;
+  border-bottom: 2px solid white;
 }
 .button-icon {
   transition: transform 0.3s ease;

@@ -87,7 +87,7 @@ function Register() {
     <div className="flex flex-col justify-center items-center register p-5">
     <form
         autoComplete="off"
-        className="w-full max-w-[600px] p-10 bg-white rounded-lg shadow"
+        className="w-full max-w-[600px] p-10 bg-white border-2 border-red-600 rounded-lg shadow"
         aria-label="signup-form"
         onSubmit={handleSubmit}
       >
@@ -288,12 +288,12 @@ function Register() {
         <div className="flex items-center justify-end mb-5 text-slate-400">
           <p>¿Ya tienes una cuenta?</p>
           <Link href="/Login" className="text-blue-500 underline">
-            Inicia sesion
+          &nbsp;  Inicia sesion
           </Link>
         </div>
         <button
           type="submit"
-          className="inline-flex w-full items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-blue-500 rounded-lg h-[60px]"
+          className="inline-flex w-full items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-red-600 rounded-lg h-[60px]"
         >
           Crear la cuenta
         </button>

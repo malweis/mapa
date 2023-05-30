@@ -33,7 +33,7 @@ function Recover() {
       };
 
   return (
-    <div className='recover flex justify-center items-center border-2 border-red-500'>
+    <div className='recover flex justify-center items-center'>
          
         <section class="text-gray-600 body-font bg-gray-100 rounded-lg">
           <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">

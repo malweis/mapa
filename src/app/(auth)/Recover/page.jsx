@@ -1,9 +1,11 @@
+"use client"
 import React from 'react'
-import Register from '../components/Register'
+import Recover from '../../components/Recover'
+
 function page() {
   return (
     <>
-        <Register/>
+        <Recover/>
     </>
   )
 }

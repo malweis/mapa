@@ -287,7 +287,7 @@ function Register() {
         
         <div className="flex items-center justify-end mb-5 text-slate-400">
           <p>¿Ya tienes una cuenta?</p>
-          <Link href="#" className="text-blue-500 underline">
+          <Link href="/Login" className="text-blue-500 underline">
             Inicia sesion
           </Link>
         </div>

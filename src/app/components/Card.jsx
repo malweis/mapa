@@ -10,21 +10,21 @@ const Card = ({ record }) => {
   const getBloodTypeImage = (tipo_san) => {
     switch (tipo_san) {
       case 1:
-        return '../../public/Assets.xcassets/A+.imageset/A+.png';
+        return '../../../public/assets/Imagenes/A+.imageset/A+.png';
       case 2:
-        return '../../public/Assets.xcassets/A-.imageset/A-.png';
+        return '../../../public/assets/Imagenes/A+.imageset/A-.png';
       case 3:
-        return '../../public/Assets.xcassets/B+.imageset/B+.png';
+        return '../../../public/assets/Imagenes/A+.imageset/B+.png';
       case 4:
-        return '../../public/Assets.xcassets/B-.imageset/B-.png';
+        return '../../../public/assets/Imagenes/A+.imageset/B-.png';
       case 5:
-        return '../../public/Assets.xcassets/O+.imageset/O+.png';
+        return '../../../public/assets/Imagenes/A+.imageset/O+.png';
       case 6:
-        return '../../public/Assets.xcassets/O-.imageset/O-.png';
+        return '../../../public/assets/Imagenes/A+.imageset/O-.png';
       case 7:
-        return '../../public/Assets.xcassets/AB+.imageset/AB+.png';
+        return '../../../public/assets/Imagenes/A+.imageset/AB+.png';
       case 8:
-        return '../../public/Assets.xcassets/AB-.imageset/AB-.png';
+        return '../../../public/assets/Imagenes/A+.imageset/AB-.png';
       default:
         return 'default.png';
     }

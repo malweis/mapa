@@ -76,7 +76,7 @@ function NewSolicitud() {
     <div className="flex flex-col justify-center items-center register p-5">
     <form
         autoComplete="off"
-        className="w-full max-w-[600px] p-10 bg-white rounded-lg shadow"
+        className="w-full max-w-[600px] p-10 bg-white  border-2 border-red-600 rounded-lg shadow-xl"
         aria-label="signup-form"
       
       >

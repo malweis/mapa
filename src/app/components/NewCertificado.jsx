@@ -6,7 +6,7 @@ import axios from 'axios';
 function NewCertificado() {
     const [data, setData] = useState([]);
     const [selectedDate, setSelectedDate] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
+ 
     
 
     useEffect(() => {
@@ -86,9 +86,9 @@ function NewCertificado() {
               id="localizacion"
               name='localizacion'
               className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-              defaultValue={selectedOption}
+             
             >
-              <option value=""  disabled>
+              <option value="" >
                 Escoja una opcion
               </option>
               {renderOptions()}

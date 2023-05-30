@@ -36,7 +36,7 @@ const Certificados = () => {
 
   return (
     <div className=" w-screen h-full bg-red-600 grid place-items-center gap-6 p-8">
-          <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white border-2 border-white rounded-lg h-[60px]" href={'/Certificado-nuevo'}>
+          <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white border-2 border-white rounded-lg h-[60px]" href={'/certificado-nuevo'}>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

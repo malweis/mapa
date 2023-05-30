@@ -167,8 +167,8 @@ function Login() {
             </button>
           </div>
         </form>
-        <div>¿Nuevo en el sitio? <Link className="text-blue-500" href={'/Sign-up'}> ¡Registrate!</Link></div>
-        <div><Link href={'/Recover'} className="text-blue-500">¿Olvidaste tu contraseña?</Link></div>
+        <div>¿Nuevo en el sitio? <Link className="text-blue-500" href={'/sign-up'}> ¡Registrate!</Link></div>
+        <div><Link href={'/recover'} className="text-blue-500">¿Olvidaste tu contraseña?</Link></div>
       </div>
     </>
   );

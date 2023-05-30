@@ -8,11 +8,11 @@ function Header() {
   const router = usePathname();
 
   const navLinks = [
-    { href: '/Solicitudes', name: 'Solicitudes' },
-    { href: '/Mapa', name: 'Mapa' },
-    { href: '/Perfil', name: 'Perfil' },
-    { href: '/Login', name: 'Login' },
-    { href: '/Certificados', name: 'Certificados' },
+    { href: '/solicitudes', name: 'Solicitudes' },
+    { href: '/mapa', name: 'Mapa' },
+    { href: '/perfil', name: 'Perfil' },
+    { href: '/login', name: 'Login' },
+    { href: '/certificados', name: 'Certificados' },
   ];
   return (
     <header className="text-gray-600 body-font  heads w-full  z-90 flex justify-center items-center">

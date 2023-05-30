@@ -1,5 +1,6 @@
 "use client"
 import React from 'react';
+import Image from 'next/image';
 
 
 
@@ -69,7 +70,7 @@ const Card = ({ record }) => {
       </div>
       <div className="flex justify-between">
         <div id="sangre">Tipo de sangre:</div>
-        <div id="tipo">  <img src={bloodTypeImage} alt={record.tipo_sangre} width={"30px"} height={"30px"} /></div>
+        <div id="tipo">  <Image src={bloodTypeImage} alt={record.tipo_sangre} width={"30px"} height={"30px"} /></div>
       </div>
       <div className="flex justify-between">
         <div id="volumenes">Volumenes requeridos: </div>

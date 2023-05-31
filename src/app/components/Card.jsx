@@ -10,21 +10,21 @@ const Card = ({ record }) => {
   const getBloodTypeImage = (tipo_san) => {
     switch (tipo_san) {
       case 1:
-        return '../../../public/assets/Imagenes/A+.imageset/A+.png';
+        return '/assets/Imagenes/A+.imageset/A+.png';
       case 2:
-        return '../../../public/assets/Imagenes/A+.imageset/A-.png';
+        return '/assets/Imagenes/A-.imageset/A-.png';
       case 3:
-        return '../../../public/assets/Imagenes/A+.imageset/B+.png';
+        return '/assets/Imagenes/B+.imageset/B+.png';
       case 4:
-        return '../../../public/assets/Imagenes/A+.imageset/B-.png';
+        return '/assets/Imagenes/B-.imageset/B-.png';
       case 5:
-        return '../../../public/assets/Imagenes/A+.imageset/O+.png';
+        return '/assets/Imagenes/O+.imageset/O+.png';
       case 6:
-        return '../../../public/assets/Imagenes/A+.imageset/O-.png';
+        return '/assets/Imagenes/O-.imageset/O-.png';
       case 7:
-        return '../../../public/assets/Imagenes/A+.imageset/AB+.png';
+        return '/assets/Imagenes/AB+.imageset/AB+.png';
       case 8:
-        return '../../../public/assets/Imagenes/A+.imageset/AB-.png';
+        return '/assets/Imagenes/AB-.imageset/AB-.png';
       default:
         return 'default.png';
     }
@@ -70,7 +70,7 @@ const Card = ({ record }) => {
       </div>
       <div className="flex justify-between">
         <div id="sangre">Tipo de sangre:</div>
-        <div id="tipo">  <Image src={bloodTypeImage} alt={record.tipo_sangre} width={"30px"} height={"30px"} /></div>
+        <div id="tipo">  <Image src={bloodTypeImage} alt={record.tipo_sangre} width={30} height={30} /></div>
       </div>
       <div className="flex justify-between">
         <div id="volumenes">Volumenes requeridos: </div>

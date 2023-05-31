@@ -178,7 +178,7 @@ function NewSolicitud() {
           >
             Tipo de sangre
           </label>
-          <div className="relative w-[340px] text-sm font-medium">
+          <div className="relative w-full text-sm font-medium">
             <select
               id="tipo_sangre"
               name="tipo_sangre"
@@ -199,7 +199,7 @@ function NewSolicitud() {
           >
             Lugar de donacion
           </label>
-          <div className="relative w-[340px] text-sm font-medium">
+          <div className="relative w-full text-sm font-medium">
             <select
               id="localizacion"
               name="localizacion"

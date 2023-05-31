@@ -48,7 +48,7 @@ const fakeData = [
 
 
   return (
-    <div className='perfil flex flex-col gap-4 justify-center items-center border-2 border-red-500'>
+    <div className='perfil flex flex-col gap-4 justify-center items-center '>
         {data.map((fakeItem) => (
         <div className="bg-white w-[250px] rounded-xl shadow" aria-label="card-overlay-v3" key={fakeItem.id}>
           <div className="w-full rounded-xl h-[250px] flex-shrink-0">

@@ -39,7 +39,7 @@ const Card = ({ record }) => {
   const bloodTypeImage = getBloodTypeImage(record.tipo_sangre);
   
   return (
-    <div className="w-[300px] h-[400px] bg-white text-black flex flex-col justify-between rounded-lg p-4 border-2 border-red-600"  key={record.id}>
+    <div className="w-[300px] h-[400px] bg-white text-black flex flex-col justify-between rounded-lg  shadow-xl carta p-4 border-2 border-red-600"  key={record.id}>
       <div className="flex justify-between">
         <div className="flex-1 font-bold" id="bold-title">{record.nombre_apellido_donatario}</div>
         <div id="basura">
@@ -52,7 +52,7 @@ const Card = ({ record }) => {
         </div>
         <div id="whatsapp">
           <a href={createWhatsAppLink()}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
           </a>
         </div>
       </div>

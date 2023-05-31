@@ -15,11 +15,11 @@ function Header() {
 
 
   const navLinks = [
-    { href: '/solicitudes', name: 'Solicitudes' },
-    { href: '/mapa', name: 'Mapa' },
-    { href: '/perfil', name: 'Perfil' },
-    { href: '/login', name: 'Login' },
-    { href: '/certificados', name: 'Certificados' },
+    { href: '/solicitudes', name: 'Solicitudes', id: 1 },
+    { href: '/mapa', name: 'Mapa' , id: 2},
+    { href: '/perfil', name: 'Perfil' , id: 3 },
+    { href: '/login', name: 'Login' , id: 4 },
+    { href: '/certificados', name: 'Certificados' , id: 5 },
   ];
   return (
     <header className=" flex justify-center md:flex-row heads md:items-center md:bg-red-600 md:w-full md:pr-5 md:pl-5">
@@ -38,11 +38,11 @@ function Header() {
           {navLinks.map((link) => {
           const isActive = router.startsWith(link.href);
           return (
-            <li>
+            <li key={link.id}>
               <Link
                 className={isActive ? 'mr-5 hover:text-gray-300 border-b-2 border-blue-200' : 'mr-5 hover:text-gray-300'}
                 href={link.href}
-                key={link.name}
+                key={link.id}
               >
                 {link.name}
               </Link>

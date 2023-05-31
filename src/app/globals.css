@@ -123,6 +123,7 @@ nav > ul >li > a{
 @media (max-width: 35em) {
       .mainav{
         position: fixed;
+        z-index: 1000;
         flex-direction: column;
         gap: 2em;
         color: white;
@@ -159,7 +160,18 @@ nav > ul >li > a{
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 100;
+        z-index: 2000;
       }	
+}
+.carta, .certificado{
+  background: hsla(0, 57%, 89%, 0.626);
+ 
+  
+}
+@supports (backdrop-filter: blur(1rem)) {
+  .carta, .certificado {
+   
+    backdrop-filter: blur(1rem);
+  }
 }
 

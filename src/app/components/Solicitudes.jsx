@@ -57,7 +57,7 @@ const Solicitudes = () => {
           />
           <label
             htmlFor="choose-me"
-            className="select-none cursor-pointer rounded-lg border-2 border-red-600
+            className="select-none cursor-pointer flex justify-center items-center rounded-lg border-2 border-red-600
             px-8 py-4  h-[60px] font-bold text--red-600 transition-colors duration-200 ease-in-out
               peer-checked:bg-white peer-checked:text-gray-900 peer-checked:border-gray-200"
           >

@@ -26,6 +26,7 @@ body, html {
   margin: 0;
   font-family: var(--system-ui);
   overflow-x: hidden;
+ 
   
 }
 
@@ -110,14 +111,15 @@ nav > ul >li > a{
 .button-icon.rotated {
   transform: rotate(180deg);
 }
-.button-container {
-  max-height: 0;
+.navegar {
+  inset: 90% 0 0 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
-.button-container.visible {
-  max-height: 1000px; /* Set an appropriate value based on your content */
+.navegar.ver {
+  /* Set an appropriate value based on your content */
+  inset: 40% 0 0 0;
 }
 
 @media (max-width: 35em) {

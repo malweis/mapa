@@ -59,8 +59,8 @@ function Mapas() {
 
 
   return (
-    <div className="bg-rose-800 mapa w-full  grid grid-cols-3 grid-rows-2 gap-8">
-      <div className='col-start-1 col-end-4  row-start-1 row-end-3 z-0'>
+    <div className="bg-rose-800 mapa w-full h-screen grid grid-cols-3 grid-rows-2 gap-8">
+      <div className='col-start-1 col-end-4  row-start-1 row-end-4 z-0'>
         <MapContainer id="map" ref={mapRef} center={position} zoom={13} scrollWheelZoom={true} >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -98,15 +98,15 @@ function Mapas() {
         </MapContainer>
       </div>
 
-      <div className=' row-start-2 row-end-3  col-start-2 col-end-3 z-10 bg-red-600 p-8 rounded-r-lg  self-end' >
-        <h1 className='text-white font-bold text-2xl button-show ' ><button onClick={handleButtonShowClick}>Locales de donación <KeyboardArrowUpIcon className={`button-icon ${isButtonToggled ? 'rotated' : ''}`} /></button> </h1>
+      <div className={` w-full fixed  navegar bg-red-600 p-8  box-border  self-end ${isButtonContainerVisible ? 'ver' : ''}`} >
+        <h1 className='text-white font-bold text-xl button-show mb-4 ' ><button onClick={handleButtonShowClick}>Locales de donación <KeyboardArrowUpIcon className={`button-icon ${isButtonToggled ? 'rotated' : ''}`} /></button> </h1>
 
-        <div className={`button-container flex flex-col justify-start gap-2 h-full ${isButtonContainerVisible ? 'visible' : ''} z-20`}>
+        <div className={`button-container flex flex-col justify-start items-center gap-2 h-full  z-20 ${isButtonContainerVisible ? '' : 'hidden'}`}>
 
            
           {Array.isArray(locales.data) && locales.data.length > 0 ? (
             locales.data.map((local) => (
-              <button key={local.id} onClick={() => handleMapClick({ latlng: [local.latitud, local.longitud] })} className='flex justify-start  px-2 py-2 font-sans font-semibold tracking-wide rounded-2xl h-[30px]  w-full h-full bg-white'>
+              <button key={local.id} onClick={() => handleMapClick({ latlng: [local.latitud, local.longitud] })} className='flex justify-start  px-2 py-2 font-sans font-semibold tracking-wide rounded-2xl h-9 md:w-9/12 w-full h-full bg-white'>
               Ir a  {local.local_donacion}
             </button>
             ))
@@ -115,9 +115,7 @@ function Mapas() {
           )}
         </div>
       </div>
-      <div className='  bg-red-600 row-start-2 row-end-3  col-start-1 col-end-4 z-20 w-full h-[6%] self-end'>
-    
-      </div>
+     
     </div>
   );
 }

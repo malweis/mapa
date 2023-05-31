@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
+import axios from "axios";
+
 import Link from "next/link";
 import Image from "next/image";
 import icono from "../../../public/assets/Imagenes/donacion-de-sangre (1) 1.imageset/donacion-de-sangre (1).png"
@@ -11,6 +14,8 @@ function Login() {
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const router = useRouter();
+
 
 
   const handlePasswordChange = (e) => {
@@ -32,6 +37,35 @@ function Login() {
     setEmail(e.target.value);
   };
 
+  useEffect(() => {
+    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+   
+
+    // Set the default X-CSRF-TOKEN header for all requests
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+  }, [])
+
+  
+  const login = async () => {
+    try {
+      const response = await axios.post('http://192.168.16.90:8000/api/login', {
+        email: 'asd@gmail.com',
+        password: '123'
+      });
+      const { token } = response.data;
+      // Store the token locally in the browser
+      localStorage.setItem('token', token);
+      console.log('Token stored:', token);
+  
+      // Redirect to '/perfil' page
+      router.push('/perfil');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  
+
   const validateEmail = () => {
     // Regular expression for email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,13 +80,14 @@ function Login() {
     e.preventDefault();
     validateEmail();
     validatePassword();
-    validateConfirmPassword();
+  
 
     // Proceed with form submission if there are no errors
     if (!passwordError || !emailError) {
       // Perform form submission logic here
     }
   };
+  
 
   return (
     <>
@@ -100,7 +135,7 @@ function Login() {
               placeholder="Ingresa tu contraseña"
               value={password}
               onChange={handlePasswordChange}
-              onBlur={validatePassword}
+             
             />
 
 
@@ -164,6 +199,7 @@ function Login() {
                   text-gray-100
                   focus:outline-none
                 "
+                onClick={login}
             >
               Login
             </button>

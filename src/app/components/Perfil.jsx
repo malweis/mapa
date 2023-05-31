@@ -5,52 +5,52 @@ import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import axios from 'axios';
 
-
-
-
 function Perfil() {
-
   const [data, setData] = useState([]);
 
-  
-const fakeData = [
-  {
-    id: 1,
-    nombre: "John Doe",
-    email: "johndoe@example.com",
-    ultima_fecha: "2022-05-30",
-    sexo: "Male",
-    fecha_nacimiento: "1990-01-01",
-    ci: "12345678"
-  },
-  // Add more fake data objects as needed
-];
+
 
   useEffect(() => {
-    setData(fakeData);
+    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    console.log(storedToken);
+
+    if (storedToken) {
+      fetchData(storedToken);
+    } else {
+      router.push('/login');
+    }
   }, []);
 
-  // const getAndSetData = () => {
-  //   axios.get('http://192.168.16.90:8000/api/solicitudes')
-  //     .then(response => {
-  //       console.log('API request succeeded');
-  //       console.log(response.data.data);
-  //       setData(response.data.data);
-  //     })
-  //     .catch(error => {
-  //       console.log('API request failed');
-  //       console.log(error);
-  //     });
-  // };
-
-
-
-
+  const fetchData = async (storedToken) => {
+    try {
+      const response = await axios.get('http://192.168.16.90:8000/api/user/', {
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      });
+  
+      const responseData = response.data;
+      const storedUserId = 47; // Replace with your locally stored user ID
+  
+      if (responseData && responseData.id === storedUserId) {
+        setData([responseData]);
+       console.log(data[0].name)
+      } else {
+        console.error('Error: Invalid response data or user ID mismatch');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  
+  
 
   return (
-    <div className='perfil flex flex-col gap-4 justify-center items-center '>
-        {data.map((fakeItem) => (
-        <div className="bg-white w-[250px] rounded-xl shadow" aria-label="card-overlay-v3" key={fakeItem.id}>
+    <div className='perfil flex flex-col gap-4 justify-center items-center'>
+      {data && (
+       
+        <div className="bg-white w-[250px] rounded-xl shadow" aria-label="card-overlay-v3">
           <div className="w-full rounded-xl h-[250px] flex-shrink-0">
             <img
               src="https://plus.unsplash.com/premium_photo-1682309704250-6bac0f499665?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1512&q=80"
@@ -60,31 +60,34 @@ const fakeData = [
           </div>
           <div className="flex flex-col flex-1 p-5">
             <div className="pb-5 mb-5 border-b border-gray-200">
-              <h3 className="mb-1 text-lg font-bold">{fakeItem.nombre}</h3>
-              <span className="text-sm">{fakeItem.email}</span><br/>
-              <span className="text-sm">Ultima donacion: {fakeItem.ultima_fecha}</span>
+              <h3 className="mb-1 text-lg font-bold">{data[0].name}</h3>
+              <span className="text-sm">{data[0].email}</span><br/>
+              <span className="text-sm">Ultima donacion: {data[0].ult_vez_donado}</span>
             
               <PersonIcon className="text-red-600" />
-              <span className="text-sm ">{fakeItem.sexo}</span>
+              <span className="text-sm ">{data[0].sexo}</span>
             </div>
             <div className="flex items-center justify-between w-full ml-auto">
-              <div className="text-sm text-slate-400">{fakeItem.fecha_nacimiento}</div>
+              <div className="text-sm text-slate-400">{data[0].fecha_nacimiento}</div>
               <div className="flex items-center gap-x-1">
                 <BadgeIcon className="text-red-600" />
-                <span className="text-sm font-bold">{fakeItem.ci}</span>
+                <span className="text-sm font-bold">{data[0].nro_cedula}</span>
               </div>
             </div>
           </div>
         </div>
-      ))}
-        <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Editar Información</button>
-             
-        <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><Link href={'/recover'} >Cambiar contraseña</Link></button>
-           
-        <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Cerrar sesión</button>
-            
+      )}
+      <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        Editar Información
+      </button>
+      <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        <Link href={'/recover'}>Cambiar contraseña</Link>
+      </button>
+      <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        Cerrar sesión
+      </button>
     </div>
-  )
+  );
 }
 
-export default Perfil
+export default Perfil;

@@ -9,31 +9,51 @@ const Certificados = () => {
 
 
   useEffect(() => {
-    getAndSetData();
+    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    console.log(storedToken);
+    if (storedToken) {
+      fetchData(storedToken);
+    } else {
+      router.push('/login');
+    }
   }, []);
 
-  const getAndSetData = () => {
-    axios.get('http://192.168.16.90:8000/api/solicitudes')
-      .then(response => {
-        console.log('API request succeeded');
-        console.log(response.data.data);
-        setData(response.data.data);
-      })
-      .catch(error => {
-        console.log('API request failed');
-        console.log(error);
+ 
+  const fetchData = async () => {
+    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    console.log(storedToken);
+    try {
+      const response = await axios.get('http://192.168.16.90:8000/api/certificados?desc=1', {
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
       });
+  
+      const responseData = response.data;
+      console.log(response.data.data[0].local_donacion)
+  
+      if (typeof responseData === 'object' && responseData !== null) {
+        setData([responseData]); // Wrap the object in an array to maintain consistency
+      } else {
+        console.error('Error: Invalid response data format');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
+  
+  
 
  
   
-  const renderCards = () => {
-    const records =  data;
-    return records.map(record => (
-      <Certificado key={record.id} record={record} />
-    ));
-  };
-
+     const renderCards = () => {
+      
+      return data.map((record, index) => (
+        <Certificado key={record.data[index].id} record={record} index={index} />
+      ));
+    };
+    
   return (
     <div className=" w-screen h-full bg-white grid place-items-center gap-6 p-8">
           <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-red-600 border-2 border-red-600 rounded-lg h-[60px]" href={'/certificado-nuevo'}>

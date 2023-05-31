@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,8 +24,11 @@ body, html {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-family: var(--system-ui);
+  overflow-x: hidden;
   
 }
+
 .main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -114,5 +118,48 @@ nav > ul >li > a{
 
 .button-container.visible {
   max-height: 1000px; /* Set an appropriate value based on your content */
+}
+
+@media (max-width: 35em) {
+      .mainav{
+        position: fixed;
+        flex-direction: column;
+        gap: 2em;
+        color: white;
+        padding: min(30vh, 10rem) 2em;
+        background: hsla(0, 96%, 46%, 0.856);
+        backdrop-filter: blur(1rem);
+        inset: 0 0 0 30%;
+        flex-direction: column;
+        grid-area: '';
+        transition: transform 350ms ease-in ;
+      }
+      .hiding{
+        transform: translateX(100%);
+      }
+      .visible{
+        transform: translateX(0%);
+      }
+      @supports (backdrop-filter: blur(1rem)) {
+        .mainav {
+          background: hsla(0, 96%, 46%, 0.541);
+          backdrop-filter: blur(1rem);
+        }
+      }
+      .main-btn-toggle{
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        width: 3em;
+        height: 3em;
+       
+       background: url("../../public/assets/menu.svg");
+       background-repeat:no-repeat;
+       background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+      }	
 }
 

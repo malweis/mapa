@@ -66,6 +66,8 @@ function Login() {
              src={icono}
              width={100}
              height={100}
+             alt="Imagen bolsa de sangre"
+             priority
             />
           </div>
           <h2 className="text-2xl text-center text-black mb-8">Iniciar sesión</h2>
@@ -167,8 +169,8 @@ function Login() {
             </button>
           </div>
         </form>
-        <div>¿Nuevo en el sitio? <Link className="text-blue-500" href={'/sign-up'}> ¡Registrate!</Link></div>
-        <div><Link href={'/recover'} className="text-blue-500">¿Olvidaste tu contraseña?</Link></div>
+        <div>¿Nuevo en el sitio? <Link className="text-red-500" href={'/sign-up'}> ¡Registrate!</Link></div>
+        <div><Link href={'/recover'} className="text-red-500">¿Olvidaste tu contraseña?</Link></div>
       </div>
     </>
   );

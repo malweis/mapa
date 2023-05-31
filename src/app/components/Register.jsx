@@ -128,12 +128,13 @@ function Register() {
           <label htmlFor="sexo" className="text-sm font-medium cursor-pointer">
             Sexo
           </label>
-          <div className="relative w-[340px] text-sm font-medium">
+          <div className="relative w-full text-sm font-medium">
             <select
               id="sexo"
               className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
+              defaultValue={" "}
             >
-              <option value="" selected>
+              <option value=" " disabled >
                 Escoja una opcion
               </option>
               <option value="masculino">Masculino</option>
@@ -344,7 +345,7 @@ function Register() {
         
         <div className="flex items-center justify-end mb-5 text-slate-400">
           <p>¿Ya tienes una cuenta?</p>
-          <Link href="/login" className="text-blue-500 underline">
+          <Link href="/login" className="text-red-500 underline">
           &nbsp;&nbsp;  Inicia sesion
           </Link>
         </div>

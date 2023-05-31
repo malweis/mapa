@@ -9,7 +9,7 @@ const Certificados = () => {
 
 
   useEffect(() => {
-    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    const storedToken = localStorage.getItem('token');;
     console.log(storedToken);
     if (storedToken) {
       fetchData(storedToken);
@@ -20,7 +20,7 @@ const Certificados = () => {
 
  
   const fetchData = async () => {
-    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    const storedToken = localStorage.getItem('token');;
     console.log(storedToken);
     try {
       const response = await axios.get('http://192.168.16.90:8000/api/certificados?desc=1', {

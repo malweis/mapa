@@ -3,6 +3,11 @@ import React from 'react'
 import Link from 'next/link'
 
 function Main() {
+  const handleResetToken = () => {
+    // Reset the token
+    localStorage.removeItem('token');
+    // Perform any other desired actions after resetting the token
+  };
   return (
     <div className="mainer">
          
@@ -51,7 +56,9 @@ function Main() {
                 </Link>
               </div>
             </div>
-            <button className="flex mx-auto mt-16 text-white bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">BOTON</button>
+            <button className="flex mx-auto mt-16 text-white bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+             onClick={handleResetToken}
+            >Log Out</button>
           </div>
         </section>
          

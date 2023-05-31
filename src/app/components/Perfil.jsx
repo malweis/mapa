@@ -4,20 +4,21 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 function Perfil() {
   const [data, setData] = useState([]);
-
+  const router = useRouter();
 
 
   useEffect(() => {
-    const storedToken = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ';
+    const storedToken = localStorage.getItem('token');;
     console.log(storedToken);
 
     if (storedToken) {
       fetchData(storedToken);
     } else {
-      router.push('/login');
+      router.push('/login')
     }
   }, []);
 
@@ -30,11 +31,11 @@ function Perfil() {
       });
   
       const responseData = response.data;
-      const storedUserId = 47; // Replace with your locally stored user ID
+      
   
-      if (responseData && responseData.id === storedUserId) {
-        setData([responseData]);
-       console.log(data[0].name)
+      if (responseData ) {
+        setData(responseData);
+      
       } else {
         console.error('Error: Invalid response data or user ID mismatch');
       }
@@ -60,18 +61,18 @@ function Perfil() {
           </div>
           <div className="flex flex-col flex-1 p-5">
             <div className="pb-5 mb-5 border-b border-gray-200">
-              <h3 className="mb-1 text-lg font-bold">{data[0].name}</h3>
-              <span className="text-sm">{data[0].email}</span><br/>
-              <span className="text-sm">Ultima donacion: {data[0].ult_vez_donado}</span>
+              <h3 className="mb-1 text-lg font-bold">{data.name}</h3>
+              <span className="text-sm">{data.email}</span><br/>
+              <span className="text-sm">Ultima donacion: {data.ult_vez_donado}</span>
             
               <PersonIcon className="text-red-600" />
-              <span className="text-sm ">{data[0].sexo}</span>
+              <span className="text-sm ">{data.sexo}</span>
             </div>
             <div className="flex items-center justify-between w-full ml-auto">
-              <div className="text-sm text-slate-400">{data[0].fecha_nacimiento}</div>
+              <div className="text-sm text-slate-400">{data.fecha_nacimiento}</div>
               <div className="flex items-center gap-x-1">
                 <BadgeIcon className="text-red-600" />
-                <span className="text-sm font-bold">{data[0].nro_cedula}</span>
+                <span className="text-sm font-bold">{data.nro_cedula}</span>
               </div>
             </div>
           </div>

@@ -30,7 +30,7 @@ function NewSolicitud() {
 
     // Make a POST request to the API endpoint using Axios
     const promise = new Promise((resolve, reject) => {
-      const storedToken = "355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ";
+      const storedToken = localStorage.getItem('token');;
       console.log(storedToken);
       axios
         .post("http://192.168.16.90:8000/api/solicitudes", data, {

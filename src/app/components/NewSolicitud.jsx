@@ -1,52 +1,84 @@
 "use client";
 
-"use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import axios from 'axios';
+import axios from "axios";
 
 function NewSolicitud() {
-  
-    const [data, setData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [locales, setLocales] = useState({ data: [] });
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    // Create a new FormData object
+    const formData = new FormData(e.target);
 
-
-  useEffect(() => {
-    getAndSetData();
-  }, []);
-  
-  const fakeData = [
-    { id: 1, lugar_donacion: 'Option 1' },
-    { id: 2, lugar_donacion: 'Option 2' },
-    { id: 3, lugar_donacion: 'Option 3' },
-  ];
-  const fakeSangre = [
-    { id: 1, tipo_sangre: 'A+' },
-    { id: 2, tipo_sangre: 'B-' },
-    { id: 3, tipo_sangre: 'O+' },
-  ];
-  
-  const getAndSetData = () => {
-      axios.get('http://192.168.16.90:8000/api/solicitudes')
-        .then((response) => {
-          console.log('API request succeeded');
-          console.log(response.data.data);
-          setData(response.data.data);
-        })
-        .catch((error) => {
-          console.log('API request failed');
-          console.log(error);
-        });
+    // Create a data object and populate it with the form values
+    const data = {
+      solicitud: formData.get("desc"),
+      fecha_limite: formData.get("finalCountdown"),
+      volumenes_necesarios: parseInt(formData.get("volumen")),
+      nombre_apellido_donatario: formData.get("nombreYApellido"),
+      cedula_donatario: formData.get("cedula"),
+      telefono_contacto: formData.get("telefono"),
+      tipo_sangre: parseInt(formData.get('tipo_sangre')),
+      establecimiento: formData.get("localizacion"),
     };
 
+    // Make a POST request to the API endpoint using Axios
+    const promise = new Promise((resolve, reject) => {
+      const storedToken = "355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ";
+      console.log(storedToken);
+      axios
+        .post("http://192.168.16.90:8000/api/solicitudes", data, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => {
+          // Resolve the promise with the response data
+          resolve(response.data);
+        })
+        .catch((error) => {
+          // Reject the promise with the error
+          reject(error);
+        });
+    });
+
+    // Handle the promise
+    promise
+      .then((data) => {
+        // Handle the response from the API
+        console.log(data); // Replace with your desired logic
+
+        // Reset the form
+        e.target.reset();
+      })
+      .catch((error) => {
+        // Handle error during API request
+        console.error(error);
+      });
+  };
+
+  const fakeSangre = [
+    { id: 1, tipo_sangre: "A+" },
+    { id: 2, tipo_sangre: "A-" },
+    { id: 3, tipo_sangre: "B+" },
+    { id: 4, tipo_sangre: "B-" },
+    { id: 5, tipo_sangre: "O+" },
+    { id: 6, tipo_sangre: "O-+" },
+    { id: 7, tipo_sangre: "AB+" },
+    { id: 8, tipo_sangre: "AB-" },
+  ];
 
   const handleDateChange = (e) => {
     const inputDate = e.target.value;
 
     // Get the current date
-    const currentDate = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split("T")[0];
 
     if (inputDate > currentDate) {
       setSelectedDate(currentDate);
@@ -54,33 +86,58 @@ function NewSolicitud() {
       setSelectedDate(inputDate);
     }
   };
-  
+  useEffect(() => {
+    const fetchLocales = () => {
+      axios
+        .get("http://192.168.16.90:8000/api/locales")
+        .then((response) => {
+          setLocales(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching locales:", error);
+        });
+    };
+
+    fetchLocales();
+  }, []);
+
   const renderOptions = () => {
-    return fakeData.map((record) => (
-      <option key={record.id} value={record.lugar_donacion}>
-        {record.lugar_donacion}
+    if (loading) {
+      return <option>Loading...</option>;
+    }
+
+    if (locales.data.length === 0) {
+      return <option>No options available</option>;
+    }
+    const datos = locales.data;
+    console.log(datos);
+    return datos.map((record, index) => (
+      <option key={record.id} value={record.local_donacion} >
+        {record.local_donacion}
       </option>
     ));
   };
+
   const renderTiposangre = () => {
     return fakeSangre.map((record) => (
-      <option key={record.id} value={record.tipo_sangre}>
+      <option key={record.id} value={record.id}>
         {record.tipo_sangre}
       </option>
     ));
   };
 
-
-
   return (
     <div className="flex flex-col justify-center items-center register p-5">
-    <form
+      <form
         autoComplete="off"
         className="w-full max-w-[600px] p-10 bg-white  border-2 border-red-600 rounded-lg shadow-xl"
         aria-label="signup-form"
-      
+        onSubmit={handleSubmit}
       >
-        <h2 className="mb-10 text-3xl font-bold text-center">Nueva solicitud</h2>
+        <h2 className="mb-10 text-3xl font-bold text-center">
+          Nueva solicitud
+        </h2>
 
         <div className="flex flex-col items-start mb-5 gap-y-3">
           <label
@@ -97,48 +154,62 @@ function NewSolicitud() {
             placeholder="Ingrese nombre y apellido"
           />
         </div>
-      
+
+        <div className="flex flex-col items-start mb-5 gap-y-3">
+          <label
+            htmlFor="cedula"
+            className="text-sm font-medium cursor-pointer"
+          >
+            Cedula
+          </label>
+          <input
+            id="cedula"
+            name="cedula" // Corrected name attribute
+            type="text"
+            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
+            placeholder="Ingrese su nro de cedula"
+          />
+        </div>
 
         <div className="flex flex-col items-start mb-5 gap-y-3 ">
-          <label htmlFor="tipo_sangre" className="text-sm font-medium cursor-pointer">
-           Tipo de sangre
+          <label
+            htmlFor="tipo_sangre"
+            className="text-sm font-medium cursor-pointer"
+          >
+            Tipo de sangre
           </label>
           <div className="relative w-[340px] text-sm font-medium">
             <select
               id="tipo_sangre"
-              name='tipo_sangre'
+              name="tipo_sangre"
               className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-       
             >
-              <option value=""  disabled>
+              <option value="" disabled>
                 Escoja una opcion
               </option>
               {renderTiposangre()}
             </select>
-         
-           
           </div>
         </div>
-       
 
         <div className="flex flex-col items-start mb-5 gap-y-3 ">
-          <label htmlFor="localizacion" className="text-sm font-medium cursor-pointer">
+          <label
+            htmlFor="localizacion"
+            className="text-sm font-medium cursor-pointer"
+          >
             Lugar de donacion
           </label>
           <div className="relative w-[340px] text-sm font-medium">
             <select
               id="localizacion"
-              name='localizacion'
+              name="localizacion"
               className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-       
             >
-              <option value=""  disabled>
+              <option value="" disabled>
                 Escoja una opcion
               </option>
               {renderOptions()}
             </select>
-         
-           
           </div>
         </div>
 
@@ -158,9 +229,11 @@ function NewSolicitud() {
           />
         </div>
 
-
         <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label htmlFor="finalCountdown" className="text-sm font-medium cursor-pointer">
+          <label
+            htmlFor="finalCountdown"
+            className="text-sm font-medium cursor-pointer"
+          >
             Fecha limite
           </label>
           <input
@@ -171,7 +244,7 @@ function NewSolicitud() {
             placeholder="Ingrese la fecha limite"
             value={selectedDate}
             onChange={handleDateChange}
-            max={new Date().toISOString().split('T')[0]} // Set the max attribute to the current date
+            max={new Date().toISOString().split("T")[0]} // Set the max attribute to the current date
           />
         </div>
         <div className="flex flex-col items-start mb-5 gap-y-3">
@@ -191,10 +264,7 @@ function NewSolicitud() {
         </div>
 
         <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label
-            htmlFor="desc"
-            className="text-sm font-medium cursor-pointer"
-          >
+          <label htmlFor="desc" className="text-sm font-medium cursor-pointer">
             Descripcion
           </label>
           <textarea
@@ -206,7 +276,7 @@ function NewSolicitud() {
             placeholder="Descripcion de la solicitud"
           />
         </div>
-      
+
         <button
           type="submit"
           className="inline-flex w-full items-center justify-center px-8 py-4 font-sans font-semibold tracking-wide text-white bg-red-600 rounded-lg h-[60px]"

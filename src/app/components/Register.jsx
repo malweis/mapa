@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +13,13 @@ function Register() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
+  const [nroCedula, setNroCedula] = useState('');
+
+
+  const handleNroCedulaChange = (e) => {
+    setNroCedula(e.target.value);
+  };
+  
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -73,12 +81,49 @@ function Register() {
     validateEmail();
     validatePassword();
     validateConfirmPassword();
-
+  
     // Proceed with form submission if there are no errors
-    if (!passwordError && !confirmPasswordError || !emailError) {
-      // Perform form submission logic here
+    if ((!passwordError && !confirmPasswordError) || !emailError) {
+      // Create a data object with the form values
+      const data = {
+        name: e.target.nombres.value,
+        surname: e.target.apellidos.value,
+        nro_cedula: nroCedula, // Add the nro_cedula field
+        password: password,
+        email: email,
+        fecha_nacimiento: selectedDate,
+        // Add other form fields as needed
+      };
+  
+      // Make a POST request to the API endpoint using Axios
+      const promise = new Promise((resolve, reject) => {
+        axios.post("http://192.168.16.90:8000/api/registro", data)
+          .then(response => {
+            // Resolve the promise with the response data
+            resolve(response.data);
+          })
+          .catch(error => {
+            // Reject the promise with the error
+            reject(error);
+          });
+      });
+  
+      // Handle the promise
+      promise
+        .then(data => {
+          // Handle the response from the API
+          console.log(data); // Replace with your desired logic
+  
+          // Reset the form
+          e.target.reset();
+        })
+        .catch(error => {
+          // Handle error during API request
+          console.error(error);
+        });
     }
   };
+  
   
 
 
@@ -121,6 +166,23 @@ function Register() {
             type="text"
             className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
             placeholder="Ingresa tus apellidos"
+          />
+        </div>
+        <div className="flex flex-col items-start mb-5 gap-y-3">
+          <label
+            htmlFor="nro_cedula"
+            className="text-sm font-medium cursor-pointer"
+          >
+            Numero de cedula
+          </label>
+          <input
+            id="nro_cedula"
+            name="nro_cedula"
+            type="number"
+            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
+            placeholder="Ingresa tu numero de cedula"
+            value={nroCedula}
+            onChange={handleNroCedulaChange}
           />
         </div>
 

@@ -33,13 +33,27 @@ const Solicitudes = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     if (!isChecked) {
-      const filtered = data.filter(record => record.creado_por === 50);
-      setFilteredData(filtered);
+      const storedToken = localStorage.getItem('token');
+      axios.get('http://192.168.16.90:8000/api/solicitudes-protegido', {
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        }
+      })
+        .then(response => {
+          toast.success('Solicitudes filtradas cargadas');
+          console.log(response.data.data);
+          setFilteredData(response.data.data);
+        })
+        .catch(error => {
+          toast.error('Ocurrió un problema al cargar las solicitudes filtradas');
+          console.log(error);
+        });
     } else {
       getAndSetData();
       setFilteredData([]);
     }
   };
+  
   
   const renderCards = () => {
     const records = isChecked ? filteredData : data;

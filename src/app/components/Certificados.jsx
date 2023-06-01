@@ -32,29 +32,29 @@ const Certificados = () => {
       });
 
       const responseData = response.data;
-      console.log(responseData.data[0].local_donacion);
+     
 
-      if (typeof responseData === 'object' && responseData !== null) {
+      if (Array.isArray(responseData.data) && responseData.data.length > 0) {
         setData([responseData]); // Wrap the object in an array to maintain consistency
         toast.success('Certificados cargados!'); // Display success notification
       } else {
         console.error('Error: Invalid response data format');
-        toast.error('Error: Formato de respuesta invalido'); // Display error notification
+        toast.error('No hay registros'); // Display error notification
       }
     } catch (error) {
       console.error('Error:', error);
-      toast.error('Ocurrio un error', error); // Display error notification
+      toast.error('Ocurrió un error: ' + error); // Display error notification
     }
   };
-  
 
  
   
      const renderCards = () => {
-      
+   
       return data.map((record, index) => (
         <Certificado key={record.data[index].id} record={record} index={index} />
       ));
+    
     };
     
   return (

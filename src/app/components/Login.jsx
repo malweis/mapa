@@ -49,13 +49,14 @@ function Login() {
   const login = async () => {
     try {
       const response = await axios.post('http://192.168.16.90:8000/api/login', {
-        email: 'asd@gmail.com',
-        password: '123'
+        email: email,
+        password: password
       });
-      const { token } = response.data;
+      const { token , user} = response.data;
       // Store the token locally in the browser
       localStorage.setItem('token', token);
       console.log('Token stored:', token);
+      console.log(user);
   
       // Redirect to '/perfil' page
       router.push('/perfil');

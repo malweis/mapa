@@ -6,6 +6,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Texto from "./Texto";
+import SelectList from "./SelectList";
+
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -122,7 +124,11 @@ function Register() {
     }
   };
   
+  const people = [
+    { id: 'M', name: 'Masculino' },
+    { id: 'F', name: 'Femenino' },
   
+  ];
 
 
 
@@ -136,7 +142,7 @@ function Register() {
       >
         <h2 className="mb-10 text-3xl font-bold text-center">Registro</h2>
 
-        
+     
         <Texto 
         label={"Nombres"}
          tipo={"text"} 
@@ -165,78 +171,28 @@ function Register() {
            placeholder={"Ingresa tu numero de cedula"}/>
 
        
-      
+        
 
+        <SelectList loading={false} options={people} nombre={'name'}/>
+       
         <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label htmlFor="sexo" className="text-sm font-medium cursor-pointer">
-            Sexo
-          </label>
-          <div className="relative w-full text-sm font-medium">
-            <select
-              id="sexo"
-              className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-              defaultValue={" "}
-            >
-              <option value=" " disabled >
-                Escoja una opcion
-              </option>
-              <option value="masculino">Masculino</option>
-              <option value="femenino">Femenino</option>
-              <option value="otro">Otro</option>
-            </select>
-            <div
-              id="sexo-options"
-              className="absolute left-0 w-full p-2 mt-2 bg-white rounded-lg shadow top-full hidden"
-            >
-              <div
-                className="p-3 rounded cursor-pointer hover:text-blue-500 hover:bg-blue-50"
-                onClick={() => {
-                  const select = document.getElementById("sexo");
-                  select.value = "M";
-                  select.click();
-                }}
-              >
-                Masculino
-              </div>
-              <div
-                className="p-3 rounded cursor-pointer hover:text-blue-500 hover:bg-blue-50"
-                onClick={() => {
-                  const select = document.getElementById("sexo");
-                  select.value = "F";
-                  select.click();
-                }}
-              >
-                Femenino
-              </div>
-              <div
-                className="p-3 rounded cursor-pointer hover:text-blue-500 hover:bg-blue-50"
-                onClick={() => {
-                  const select = document.getElementById("sexo");
-                  select.value = "O";
-                  select.click();
-                }}
-              >
-                Otro
-              </div>
+        <Texto 
+        label={"Correo electronico"}
+         tipo={"email"} 
+         id={"email"} 
+         validation={emailError ? 'invalid' : 'valid'}
+         error={emailError ? 'Escriba un formato adecuado de email' : ''}
+          required={"true"} 
+          mode={"email"}
+           placeholder={"Ingresa tu correo electronico"}
+           patron={ /^[^\s@]+@[^\s@]+\.[^\s@]+$/}
+           evento={handleEmailChange}
+           eventoblur={validateEmail}
+           />
+            {emailError && <p className="text-red-500">{emailError}</p>}
             </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label htmlFor="email" className="text-sm font-medium cursor-pointer">
-            Email
-          </label>
-          <input
-            id="email"
-            name='email'
-            type="email"
-            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-            placeholder="Ingresa tu correo..."
-            value={email}
-            onChange={handleEmailChange}
-            onBlur={validateEmail}
-          />
-          {emailError && <p className="text-red-500">{emailError}</p>}
-        </div>
+
+
         <div className="flex flex-col items-start mb-5 gap-y-3">
           <label htmlFor="password" className="text-sm font-medium cursor-pointer">
             Contraseña

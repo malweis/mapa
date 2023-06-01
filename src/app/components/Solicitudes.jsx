@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  
 
   useEffect(() => {
     getAndSetData();
@@ -21,7 +24,8 @@ const Solicitudes = () => {
         setData(response.data.data);
       })
       .catch(error => {
-        console.log('API request failed');
+        toast.error('Ocurrio un problema trayendo las solicitudes');
+
         console.log(error);
       });
   };

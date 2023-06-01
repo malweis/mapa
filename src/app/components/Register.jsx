@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -96,31 +98,26 @@ function Register() {
       };
   
       // Make a POST request to the API endpoint using Axios
-      const promise = new Promise((resolve, reject) => {
-        axios.post("http://192.168.16.90:8000/api/registro", data)
-          .then(response => {
-            // Resolve the promise with the response data
-            resolve(response.data);
-          })
-          .catch(error => {
-            // Reject the promise with the error
-            reject(error);
-          });
-      });
-  
-      // Handle the promise
-      promise
-        .then(data => {
-          // Handle the response from the API
-          console.log(data); // Replace with your desired logic
-  
-          // Reset the form
-          e.target.reset();
-        })
-        .catch(error => {
-          // Handle error during API request
-          console.error(error);
-        });
+      axios
+  .post("http://192.168.16.90:8000/api/registro", data)
+  .then((response) => {
+    // Handle the response from the API
+    console.log(response.data); // Replace with your desired logic
+
+    // Display success toast notification
+    toast.success('Se ha registrado correctamente');
+
+    // Reset the form
+    e.target.reset();
+  })
+  .catch((error) => {
+    // Handle error during API request
+    console.error(error);
+
+    // Display error toast notification
+    toast.error('Hubo un error en el proceso de registro', error);
+  });
+
     }
   };
   
@@ -418,6 +415,7 @@ function Register() {
           Crear la cuenta
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

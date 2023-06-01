@@ -1,21 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function NewSolicitud() {
   const [locales, setLocales] = useState({ data: [] });
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Create a new FormData object
     const formData = new FormData(e.target);
-
+  
     // Create a data object and populate it with the form values
     const data = {
       solicitud: formData.get("desc"),
@@ -27,37 +28,28 @@ function NewSolicitud() {
       tipo_sangre: parseInt(formData.get('tipo_sangre')),
       establecimiento: formData.get("localizacion"),
     };
-
+  
     // Make a POST request to the API endpoint using Axios
-    const promise = new Promise((resolve, reject) => {
-      const storedToken = localStorage.getItem('token');;
-      console.log(storedToken);
-      axios
-        .post("http://192.168.16.90:8000/api/solicitudes", data, {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        })
-        .then((response) => {
-          // Resolve the promise with the response data
-          resolve(response.data);
-        })
-        .catch((error) => {
-          // Reject the promise with the error
-          reject(error);
-        });
-    });
-
-    // Handle the promise
-    promise
-      .then((data) => {
-        // Handle the response from the API
-        console.log(data); // Replace with your desired logic
-
+    const storedToken = localStorage.getItem('token');
+    console.log(storedToken);
+  
+    axios
+      .post("http://192.168.16.90:8000/api/solicitudes", data, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+      .then((response) => {
+        // Display success toast notification
+        toast.success('Solicitud enviada de forma exitosa!');
+  
         // Reset the form
         e.target.reset();
       })
       .catch((error) => {
+        // Display error toast notification
+        toast.error('Ocurrio un error durante el envio de la solicitud, por favor intente de nuevo', error);
+  
         // Handle error during API request
         console.error(error);
       });
@@ -284,6 +276,7 @@ function NewSolicitud() {
           Crear solicitud
         </button>
       </form>
+      <ToastContainer/>
     </div>
   );
 }

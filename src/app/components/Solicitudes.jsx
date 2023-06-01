@@ -19,7 +19,7 @@ const Solicitudes = () => {
   const getAndSetData = () => {
     axios.get('http://192.168.16.90:8000/api/solicitudes')
       .then(response => {
-        console.log('API request succeeded');
+        toast.success('Solicitudes cargadas');
         console.log(response.data.data);
         setData(response.data.data);
       })
@@ -90,6 +90,7 @@ const Solicitudes = () => {
       </label>
    
     {renderCards()}
+    <ToastContainer/>
     </div>
   );
 };

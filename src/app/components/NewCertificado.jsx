@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function NewCertificado() {
    
@@ -12,23 +14,24 @@ function NewCertificado() {
     
 
     
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Create a new FormData object
-    const formData = new FormData(e.target);
-
-    // Create a data object and populate it with the form values
-    const data = {
-     
-      fecha_donacion: selectedDate,
-      local_donacion_id: formData.get("localizacion"),
-    };
-
-    // Make a POST request to the API endpoint using Axios
-    const promise = new Promise((resolve, reject) => {
-      const storedToken = localStorage.getItem('token');;
+  
+    
+    const handleSubmit = (e) => {
+      e.preventDefault();
+    
+      // Create a new FormData object
+      const formData = new FormData(e.target);
+    
+      // Create a data object and populate it with the form values
+      const data = {
+        fecha_donacion: selectedDate,
+        local_donacion_id: formData.get("localizacion"),
+      };
+    
+      // Make a POST request to the API endpoint using Axios
+      const storedToken = localStorage.getItem('token');
       console.log(storedToken);
+    
       axios
         .post("http://192.168.16.90:8000/api/certificados", data, {
           headers: {
@@ -36,29 +39,20 @@ function NewCertificado() {
           },
         })
         .then((response) => {
-          // Resolve the promise with the response data
-          resolve(response.data);
+          // Display success toast notification
+          toast.success('Certificado emitido de forma exitosa!');
+    
+          // Reset the form
+          e.target.reset();
         })
         .catch((error) => {
-          // Reject the promise with the error
-          reject(error);
+          // Display error toast notification
+          toast.error('Ocurrio un error' , error);
+    
+          // Handle error during API request
+          console.error(error);
         });
-    });
-
-    // Handle the promise
-    promise
-      .then((data) => {
-        // Handle the response from the API
-        console.log(data); // Replace with your desired logic
-
-        // Reset the form
-        e.target.reset();
-      })
-      .catch((error) => {
-        // Handle error during API request
-        console.error(error);
-      });
-  };
+    };
     
 
 
@@ -162,6 +156,7 @@ function NewCertificado() {
            Crear un certificado
          </button>
        </form>
+       <ToastContainer/>
     </div>
   )
 }

@@ -2,14 +2,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Certificado from './Certificado';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Certificados = () => {
   const [data, setData] = useState([]);
 
+  const router = useRouter();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');;
+    const storedToken = localStorage.getItem('token');
     console.log(storedToken);
     if (storedToken) {
       fetchData(storedToken);
@@ -18,9 +22,7 @@ const Certificados = () => {
     }
   }, []);
 
- 
-  const fetchData = async () => {
-    const storedToken = localStorage.getItem('token');;
+  const fetchData = async (storedToken) => {
     console.log(storedToken);
     try {
       const response = await axios.get('http://192.168.16.90:8000/api/certificados?desc=1', {
@@ -28,21 +30,22 @@ const Certificados = () => {
           Authorization: `Bearer ${storedToken}`
         }
       });
-  
+
       const responseData = response.data;
-      console.log(response.data.data[0].local_donacion)
-  
+      console.log(responseData.data[0].local_donacion);
+
       if (typeof responseData === 'object' && responseData !== null) {
         setData([responseData]); // Wrap the object in an array to maintain consistency
+        toast.success('Certificados cargados!'); // Display success notification
       } else {
         console.error('Error: Invalid response data format');
+        toast.error('Error: Formato de respuesta invalido'); // Display error notification
       }
     } catch (error) {
       console.error('Error:', error);
+      toast.error('Ocurrio un error', error); // Display error notification
     }
   };
-  
-  
   
 
  
@@ -76,6 +79,7 @@ const Certificados = () => {
             <span>Nuevo Certificado</span>
           </Link>
     {renderCards()}
+    <ToastContainer/>
     </div>
   );
 };

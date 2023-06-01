@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Texto from "./Texto";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -135,53 +136,36 @@ function Register() {
       >
         <h2 className="mb-10 text-3xl font-bold text-center">Registro</h2>
 
-        <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label
-            htmlFor="nombres"
-            className="text-sm font-medium cursor-pointer"
-          >
-            Nombres
-          </label>
-          <input
-            id="nombres"
-            name="nombres"
-            type="text"
-            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-            placeholder="Ingresa tus nombres"
-          />
-        </div>
-        <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label
-            htmlFor="apellidos"
-            className="text-sm font-medium cursor-pointer"
-          >
-            Apellidos
-          </label>
-          <input
-            id="apellidos"
-            name="apellidos"
-            type="text"
-            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-            placeholder="Ingresa tus apellidos"
-          />
-        </div>
-        <div className="flex flex-col items-start mb-5 gap-y-3">
-          <label
-            htmlFor="nro_cedula"
-            className="text-sm font-medium cursor-pointer"
-          >
-            Numero de cedula
-          </label>
-          <input
-            id="nro_cedula"
-            name="nro_cedula"
-            type="number"
-            className="w-full p-4 bg-transparent border border-gray-200 rounded-lg outline-none"
-            placeholder="Ingresa tu numero de cedula"
-            value={nroCedula}
-            onChange={handleNroCedulaChange}
-          />
-        </div>
+        
+        <Texto 
+        label={"Nombres"}
+         tipo={"text"} 
+         id={"nombres"} 
+         validation={"valid"}
+          required={"true"} 
+          mode={"text"}
+           placeholder={"Ingresa tu nombre"}/>
+
+        <Texto 
+        label={"Apellidos"}
+         tipo={"text"} 
+         id={"apellidos"} 
+         validation={"valid"}
+          required={"true"} 
+          mode={"text"}
+           placeholder={"Ingresa tus apellidos"}/>
+
+<Texto 
+        label={"Numero de cedula"}
+         tipo={"text"} 
+         id={"nro_cedula"} 
+         validation={"valid"}
+          required={"true"} 
+          mode={"text"}
+           placeholder={"Ingresa tu numero de cedula"}/>
+
+       
+      
 
         <div className="flex flex-col items-start mb-5 gap-y-3">
           <label htmlFor="sexo" className="text-sm font-medium cursor-pointer">

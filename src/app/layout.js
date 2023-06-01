@@ -2,6 +2,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from './components/Header'
+import {SSRProvider} from 'react-aria';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,10 @@ export default function RootLayout({ children}) {
       <body className={inter.className}>
         <div className='main h-full w-full'>
           <Header/>
-          {children}
+          <SSRProvider> 
+            {children}
+            </SSRProvider>
+         
           
         </div>
         </body>

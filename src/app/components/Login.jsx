@@ -57,8 +57,9 @@ function Login() {
       const { token , user} = response.data;
       // Store the token locally in the browser
       localStorage.setItem('token', token);
+      localStorage.setItem('user', user);
       console.log('Token stored:', token);
-      console.log(user);
+     
   
       // Redirect to '/perfil' page
       toast.success('Ingreso exitoso');

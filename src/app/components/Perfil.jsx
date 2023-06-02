@@ -5,6 +5,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Perfil() {
   const [data, setData] = useState([]);
@@ -22,6 +24,16 @@ function Perfil() {
     }
   }, []);
 
+
+  const handleResetToken = () => {
+    // Reset the token
+    localStorage.removeItem('token');
+    router.push('/')
+
+      toast.info('Session cerrada correctamente');
+ 
+    // Perform any other desired actions after resetting the token
+  };
   const fetchData = async (storedToken) => {
     try {
       const response = await axios.get('http://192.168.16.90:8000/api/user/', {
@@ -84,9 +96,10 @@ function Perfil() {
       <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
         <Link href={'/recover'}>Cambiar contraseña</Link>
       </button>
-      <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+      <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleResetToken}>
         Cerrar sesión
       </button>
+      
     </div>
   );
 }

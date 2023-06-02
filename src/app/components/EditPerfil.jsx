@@ -11,7 +11,8 @@ import SelectList from "./SelectList";
 
 
 function EditPerfil() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [sexo, setSexo] = useState('');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -19,17 +20,10 @@ function EditPerfil() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-  const [nroCedula, setNroCedula] = useState('');
 
 
-  const handleNroCedulaChange = (e) => {
-    setNroCedula(e.target.value);
-  };
+ 
   
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const handleDateChange = (e) => {
     const inputDate = e.target.value;
@@ -44,29 +38,10 @@ function EditPerfil() {
     }
   };
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
 
-  const validatePassword = () => {
-    // Define your password validation rules here
-    // For example, at least 8 characters with at least one uppercase, one lowercase, and one digit
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      setPasswordError('Las contraseñas deben tener al menos 8 caracteres , una mayuscula , una minuscula y un numero');
-    } else {
-      setPasswordError('');
-    }
-  };
+  
 
 
-  const validateConfirmPassword = () => {
-    if (password !== confirmPassword) {
-      setConfirmPasswordError('Las contraseñas no coinciden');
-    } else {
-      setConfirmPasswordError('');
-    }
-  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -82,12 +57,17 @@ function EditPerfil() {
     }
   };
 
+
+  const handleSexoChange = (e) => {
+    setSexo(e.target.value);
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     validateEmail();
-    validatePassword();
-    validateConfirmPassword();
-  
+    const storedToken = localStorage.getItem('token');
+    console.log(storedToken)
     // Proceed with form submission if there are no errors
     if ((!passwordError && !confirmPasswordError) || !emailError) {
       // Create a data object with the form values
@@ -95,37 +75,42 @@ function EditPerfil() {
         name: e.target.name.value,
         surname: e.target.surname.value,
         email: email,
+        sexo: sexo.id,
         fecha_nacimiento: selectedDate,
         // Add other form fields as needed
       };
   
       // Make a POST request to the API endpoint using Axios
       axios
-  .post("http://192.168.16.90:8000/api/editar-perfil/", data)
-  .then((response) => {
-    // Handle the response from the API
-    console.log(response.data); // Replace with your desired logic
-
-    // Display success toast notification
-    toast.success('Se ha registrado correctamente');
-
-    // Reset the form
-    e.target.reset();
-  })
-  .catch((error) => {
-    // Handle error during API request
-    console.error(error);
-
-    // Display error toast notification
-    toast.error('Hubo un error en el proceso de registro', error);
-  });
-
+        .post("http://192.168.16.90:8000/api/editar-perfil/", data, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`
+          }
+        })
+        .then((response) => {
+          // Handle the response from the API
+          console.log(response.data); // Replace with your desired logic
+  
+          // Display success toast notification
+          toast.success('Se ha registrado correctamente');
+  
+          // Reset the form
+          e.target.reset();
+        })
+        .catch((error) => {
+          // Handle error during API request
+          console.error(error);
+  
+          // Display error toast notification
+          toast.error('Hubo un error en el proceso de registro', error);
+        });
     }
   };
   
+  
   const people = [
-    { id: 'M', name: 'Masculino' },
-    { id: 'F', name: 'Femenino' },
+    { id: 'H', name: 'Masculino' },
+    { id: 'M', name: 'Femenino' },
   
   ];
 
@@ -165,7 +150,7 @@ function EditPerfil() {
        
         
 
-        <SelectList loading={false} options={people} nombre={'name'} nameClass={'sexos'} />
+        <SelectList loading={false} options={people} nombre={'name'} nameClass={'sexos'} evento={handleSexoChange}/>
        
         <div className="flex flex-col items-start mb-5 gap-y-3">
         <Texto 

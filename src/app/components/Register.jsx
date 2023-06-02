@@ -168,7 +168,9 @@ function Register() {
          validation={"valid"}
           required={"true"} 
           mode={"text"}
-           placeholder={"Ingresa tu numero de cedula"}/>
+           placeholder={"Ingresa tu numero de cedula"}
+           evento={handleNroCedulaChange}
+           />
 
        
         
@@ -185,7 +187,7 @@ function Register() {
           required={"true"} 
           mode={"email"}
            placeholder={"Ingresa tu correo electronico"}
-           patron={ /^[^\s@]+@[^\s@]+\.[^\s@]+$/}
+           patron={ "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"}
            evento={handleEmailChange}
            eventoblur={validateEmail}
            />

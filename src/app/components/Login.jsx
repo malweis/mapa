@@ -7,6 +7,8 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import icono from "../../../public/assets/Imagenes/donacion-de-sangre (1) 1.imageset/donacion-de-sangre (1).png"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,9 +61,13 @@ function Login() {
       console.log(user);
   
       // Redirect to '/perfil' page
+      toast.success('Ingreso exitoso');
       router.push('/perfil');
     } catch (error) {
       console.error('Error:', error);
+      const errorMessage = error.response.data.message || 'Ocurrio un error';
+      toast.error(errorMessage);
+
     }
   };
   
@@ -208,6 +214,7 @@ function Login() {
         </form>
         <div>¿Nuevo en el sitio? <Link className="text-red-500" href={'/sign-up'}> ¡Registrate!</Link></div>
         <div><Link href={'/recover'} className="text-red-500">¿Olvidaste tu contraseña?</Link></div>
+        <ToastContainer/>
       </div>
     </>
   );

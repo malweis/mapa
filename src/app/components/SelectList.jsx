@@ -1,12 +1,16 @@
 "use client"
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Listbox } from '@headlessui/react';
 import { Transition } from '@headlessui/react';
 
-function SelectList({ loading, options, nombre }) {
+function SelectList({ loading, options, nombre , nameClass, evento}) {
     const [selectedPerson, setSelectedPerson] = useState(options[0])
 
 
+    function handleCustomChange(newValue) {
+      setSelectedPerson(newValue);
+      console.log(newValue)
+      evento({ target: { value: newValue } });    }
    
     if (loading) {
         return (
@@ -23,12 +27,12 @@ function SelectList({ loading, options, nombre }) {
           </Listbox>
         );
       }
-     
+   
       return (
         
 
 
-<Listbox as="div" value={selectedPerson} onChange={setSelectedPerson} className={'flex flex-col mb-5 gap-3'}>
+<Listbox as="div" value={selectedPerson} onChange={handleCustomChange} name={nameClass} id={nameClass} className={'flex flex-col mb-5 gap-3'}>
         {({ open }) => (
           <>
             <Listbox.Label className="text-sm font-medium text-start text-gray-700">

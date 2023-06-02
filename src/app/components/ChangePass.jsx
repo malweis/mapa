@@ -49,24 +49,32 @@ function ChangePass() {
 
   
   const login = async () => {
+    const storedToken = localStorage.getItem('token');
+
     try {
-      const response = await axios.post('http://192.168.16.90:8000/api/cambiar-password/', {
-        old_password: password,
-        password: newpassword
-      });
-   
-     
+      const response = await axios.post(
+        'http://192.168.16.90:8000/api/cambiar-password/',
+        {
+          old_password: password,
+          password: newpassword
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`
+          }
+        }
+      );
   
       // Redirect to '/perfil' page
-      toast.success('Cambiado de contraseña exitoso');
+      toast.success('Cambio de contraseña exitoso');
       router.push('/perfil');
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = error.response.data.message || 'Ocurrio un error';
+      const errorMessage = error.response.data.message || 'Ocurrió un error';
       toast.error(errorMessage);
-
     }
   };
+  
   
   
 
@@ -234,7 +242,6 @@ function ChangePass() {
           </div>
         </form>
         
-        <ToastContainer/>
       </div>
     </>
   );

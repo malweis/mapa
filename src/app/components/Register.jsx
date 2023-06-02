@@ -12,6 +12,7 @@ import SelectList from "./SelectList";
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
+  const [sexo, setSexo] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -43,6 +44,10 @@ function Register() {
     }
   };
 
+  const handleSexoChange = (e) => {
+    setSexo(e.target.value);
+  };
+
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };
@@ -69,7 +74,9 @@ function Register() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    
   };
+
 
   const validateEmail = () => {
     // Regular expression for email format validation
@@ -90,16 +97,18 @@ function Register() {
     // Proceed with form submission if there are no errors
     if ((!passwordError && !confirmPasswordError) || !emailError) {
       // Create a data object with the form values
+      console.log(sexo.id)
       const data = {
         name: e.target.nombres.value,
         surname: e.target.apellidos.value,
         nro_cedula: nroCedula, // Add the nro_cedula field
+        sexo: sexo.id,
         password: password,
         email: email,
         fecha_nacimiento: selectedDate,
         // Add other form fields as needed
       };
-  
+      console.log(data)
       // Make a POST request to the API endpoint using Axios
       axios
   .post("http://192.168.16.90:8000/api/registro", data)
@@ -125,8 +134,8 @@ function Register() {
   };
   
   const people = [
-    { id: 'M', name: 'Masculino' },
-    { id: 'F', name: 'Femenino' },
+    { id: 'H', name: 'Masculino' },
+    { id: 'M', name: 'Femenino' },
   
   ];
 
@@ -175,7 +184,7 @@ function Register() {
        
         
 
-        <SelectList loading={false} options={people} nombre={'name'}/>
+        <SelectList loading={false} options={people} nombre={'name'} nameClass={'sexos'} evento={handleSexoChange}/>
        
         <div className="flex flex-col items-start mb-5 gap-y-3">
         <Texto 
@@ -355,7 +364,6 @@ function Register() {
           Crear la cuenta
         </button>
       </form>
-      <ToastContainer />
     </div>
   );
 }

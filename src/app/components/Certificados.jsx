@@ -79,7 +79,6 @@ const Certificados = () => {
             <span>Nuevo Certificado</span>
           </Link>
     {renderCards()}
-    <ToastContainer/>
     </div>
   );
 };

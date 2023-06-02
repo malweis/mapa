@@ -61,7 +61,7 @@ function NewSolicitud() {
     { id: 3, tipo_sangre: "B+" },
     { id: 4, tipo_sangre: "B-" },
     { id: 5, tipo_sangre: "O+" },
-    { id: 6, tipo_sangre: "O-+" },
+    { id: 6, tipo_sangre: "O-" },
     { id: 7, tipo_sangre: "AB+" },
     { id: 8, tipo_sangre: "AB-" },
   ];
@@ -276,7 +276,6 @@ function NewSolicitud() {
           Crear solicitud
         </button>
       </form>
-      <ToastContainer/>
     </div>
   );
 }

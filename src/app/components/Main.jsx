@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import Link from 'next/link'
+import { ToastContainer } from 'react-toastify';
 
 function Main() {
   const handleResetToken = () => {
@@ -59,7 +60,6 @@ function Main() {
            
           </div>
         </section>
-         
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function RootLayout({ children}) {
           <SSRProvider> 
             {children}
             </SSRProvider>
-            <ToastContainer/>
+           <ToastContainer/>
           
         </div>
         </body>

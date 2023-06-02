@@ -79,7 +79,6 @@ function Recover() {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </div>
   );
 }

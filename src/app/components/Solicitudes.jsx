@@ -104,7 +104,6 @@ const Solicitudes = () => {
       </label>
    
     {renderCards()}
-    <ToastContainer/>
     </div>
   );
 };

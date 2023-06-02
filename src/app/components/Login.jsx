@@ -215,7 +215,6 @@ function Login() {
         </form>
         <div>¿Nuevo en el sitio? <Link className="text-red-500" href={'/sign-up'}> ¡Registrate!</Link></div>
         <div><Link href={'/recover'} className="text-red-500">¿Olvidaste tu contraseña?</Link></div>
-        <ToastContainer/>
       </div>
     </>
   );

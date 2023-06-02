@@ -156,7 +156,6 @@ function NewCertificado() {
            Crear un certificado
          </button>
        </form>
-       <ToastContainer/>
     </div>
   )
 }

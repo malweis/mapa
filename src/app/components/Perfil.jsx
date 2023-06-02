@@ -14,7 +14,7 @@ function Perfil() {
 
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');;
+    const storedToken = localStorage.getItem('token');
     console.log(storedToken);
 
     if (storedToken) {
@@ -58,7 +58,7 @@ function Perfil() {
   
   
   
-
+  console.log(data)
   return (
     <div className='perfil flex flex-col gap-4 justify-center items-center'>
       {data && (
@@ -99,7 +99,6 @@ function Perfil() {
       <button className="text-white w-[250px] bg-red-600 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleResetToken}>
         Cerrar sesión
       </button>
-      
     </div>
   );
 }

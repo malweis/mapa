@@ -115,7 +115,6 @@ function Mapas() {
           )}
         </div>
       </div>
-     
     </div>
   );
 }

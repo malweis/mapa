@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import logout from "../actions/actions";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
@@ -20,7 +22,7 @@ function Perfil() {
     if (storedToken) {
       fetchData(storedToken);
     } else {
-      router.push('/Login')
+      router.push('/login')
     }
   }, []);
 

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { setToken } from "../actions/actions";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -17,6 +19,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
+
 
 
 
@@ -49,28 +53,30 @@ function Login() {
 
   
   const login = async () => {
-    try {
-      const response = await axios.post('http://192.168.16.90:8000/api/login', {
-        email: email,
-        password: password
-      });
-      const { token , user} = response.data;
-      // Store the token locally in the browser
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', user);
-      console.log('Token stored:', token);
-     
-  
-      // Redirect to '/perfil' page
-      toast.success('Ingreso exitoso');
-      router.push('/perfil');
-    } catch (error) {
-      console.error('Error:', error);
-      const errorMessage = error.response.data.message || 'Ocurrio un error';
-      toast.error(errorMessage);
+   
 
-    }
-  };
+
+    const login = async () => {
+      try {
+        const response = await axios.post('http://192.168.16.90:8000/api/login', {
+          email: email,
+          password: password
+        });
+  
+        const { token, user } = response.data;
+  
+        // Dispatch the action to set the token in Redux
+        dispatch(setToken(token));
+  
+        // Redirect to '/perfil' page
+        toast.success('Ingreso exitoso');
+        router.push('/perfil');
+      } catch (error) {
+        console.error('Error:', error);
+        const errorMessage = error.response.data.message || 'Ocurrio un error';
+        toast.error(errorMessage);
+      }
+    };
   
   
 

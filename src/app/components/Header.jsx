@@ -15,11 +15,11 @@ function Header() {
 
 
   const navLinks = [
-    { href: '/solicitudes', name: 'Solicitudes', id: 1 },
-    { href: '/mapa', name: 'Mapa' , id: 2},
-    { href: '/perfil', name: 'Perfil' , id: 3 },
-    { href: '/login', name: 'Login' , id: 4 },
-    { href: '/certificados', name: 'Certificados' , id: 5 },
+    { href: '/Solicitudes', name: 'Solicitudes', id: 1 },
+    { href: '/Mapa', name: 'Mapa' , id: 2},
+    { href: '/Perfil', name: 'Perfil' , id: 3 },
+    { href: '/Login', name: 'Login' , id: 4 },
+    { href: '/Certificados', name: 'Certificados' , id: 5 },
   ];
   return (
     <header className=" flex justify-center md:flex-row heads md:items-center md:bg-red-600 md:w-full md:pr-5 md:pl-5">

@@ -127,7 +127,7 @@ function Register() {
     console.error(error);
 
     // Display error toast notification
-    toast.error('Hubo un error en el proceso de registro', error);
+    toast.error('Hubo un error en el proceso de registro', + error);
   });
 
     }
@@ -353,7 +353,7 @@ function Register() {
         
         <div className="flex items-center justify-end mb-5 text-slate-400">
           <p>¿Ya tienes una cuenta?</p>
-          <Link href="/login" className="text-red-500 underline">
+          <Link href="/Login" className="text-red-500 underline">
           &nbsp;&nbsp;  Inicia sesion
           </Link>
         </div>

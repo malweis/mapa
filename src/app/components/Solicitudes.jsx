@@ -82,7 +82,7 @@ const Solicitudes = () => {
             Ver mis donaciones
           </label>
         </div>
-        <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-black border-2 border-red-600 rounded-lg h-[60px]" href={'/solicitud-nueva'}>
+        <Link className="inline-flex items-center gap-2 justify-center px-8 py-4 font-sans font-semibold tracking-wide text-black border-2 border-red-600 rounded-lg h-[60px]" href={'/Solicitud-nueva'}>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -20,7 +20,7 @@ function Perfil() {
     if (storedToken) {
       fetchData(storedToken);
     } else {
-      router.push('/login')
+      router.push('/Login')
     }
   }, []);
 

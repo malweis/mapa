@@ -24,6 +24,8 @@ function EditPerfil() {
   const [selectedDate, setSelectedDate] = useState('');
   const wholeState = useSelector(getToken); // Access the token value from the Redux store
   const storedToken = wholeState.payload.token;
+  const storedUser = wholeState.payload.user;
+  
 
  
   
@@ -136,7 +138,8 @@ function EditPerfil() {
          validation={"valid"}
           required={"true"} 
           mode={"text"}
-           placeholder={"Ingresa tu nombre"}/>
+           placeholder={"Ingresa tu nombre"}
+           valor={storedUser.name} />
 
         <Texto 
         label={"Apellidos"}
@@ -145,7 +148,8 @@ function EditPerfil() {
          validation={"valid"}
           required={"true"} 
           mode={"text"}
-           placeholder={"Ingresa tus apellidos"}/>
+           placeholder={"Ingresa tus apellidos"}
+           valor={storedUser.surname} />
 
 
 
@@ -167,6 +171,7 @@ function EditPerfil() {
            patron={ "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"}
            evento={handleEmailChange}
            eventoblur={validateEmail}
+           valor={storedUser.email}
            />
             {emailError && <p className="text-red-500">{emailError}</p>}
             </div>

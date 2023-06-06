@@ -1,23 +1,22 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { logOut, selectedToken, getUser, getToken } from '../(auth)/reducers/authSlice';
+import { logOut,  getToken } from '../(auth)/reducers/authSlice';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function Perfil() {
-  const [data, setData] = useState([]);
 
   const dispatch = useDispatch(); // Get the token from the state using the getToken selector
   const wholeState = useSelector(getToken); // Access the token value from the Redux store
-  const storedToken = wholeState.payload.token
+  const storedToken = wholeState.payload.token;
+  const storedUser = wholeState.payload.user;
   console.log(storedToken);
   const router = useRouter();
 
@@ -25,9 +24,9 @@ function Perfil() {
 
   useEffect(() => {
     console.log(storedToken);
+    console.log(wholeState.payload.user.id)
 
     if (storedToken) {
-      fetchData(storedToken);
     } else {
       router.push('/Login');
     }
@@ -47,32 +46,16 @@ function Perfil() {
     toast.info('Session cerrada correctamente');
     // Perform any other desired actions after resetting the token
   };
-  const fetchData = async (token) => {
-    console.log("el token" + token)
-    try {
-      const response = await axios.get('http://192.168.16.90:8000/api/user/', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setData(response.data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  
 
-  const handleLogout = () => {
-    dispatch(logOut());
-    router.push('/login');
-  };
+  
 
   
   
   
-  console.log(data)
   return (
     <div className='perfil flex flex-col gap-4 justify-center items-center'>
-      {data && (
+      {storedToken && (
        
         <div className="bg-white w-[250px] rounded-xl shadow" aria-label="card-overlay-v3">
           <div className="w-full rounded-xl h-[250px] flex-shrink-0">
@@ -84,18 +67,18 @@ function Perfil() {
           </div>
           <div className="flex flex-col flex-1 p-5">
             <div className="pb-5 mb-5 border-b border-gray-200">
-              <h3 className="mb-1 text-lg font-bold">{data.name}</h3>
-              <span className="text-sm">{data.email}</span><br/>
-              <span className="text-sm">Ultima donacion: {data.ult_vez_donado}</span>
+              <h3 className="mb-1 text-lg font-bold">{storedUser.name}</h3>
+              <span className="text-sm">{storedUser.email}</span><br/>
+              <span className="text-sm">Ultima donacion: {storedUser.ult_vez_donado}</span>
             
               <PersonIcon className="text-red-600" />
-              <span className="text-sm ">{data.sexo}</span>
+              <span className="text-sm ">{storedUser.sexo}</span>
             </div>
             <div className="flex items-center justify-between w-full ml-auto">
-              <div className="text-sm text-slate-400">{data.fecha_nacimiento}</div>
+              <div className="text-sm text-slate-400">{storedUser.fecha_nacimiento}</div>
               <div className="flex items-center gap-x-1">
                 <BadgeIcon className="text-red-600" />
-                <span className="text-sm font-bold">{data.nro_cedula}</span>
+                <span className="text-sm font-bold">{storedUser.nro_cedula}</span>
               </div>
             </div>
           </div>

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+import { getToken } from "../(auth)/reducers/authSlice";
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,6 +12,8 @@ function NewSolicitud() {
   const [locales, setLocales] = useState({ data: [] });
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState("");
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +34,6 @@ function NewSolicitud() {
     };
   
     // Make a POST request to the API endpoint using Axios
-    const storedToken = localStorage.getItem('token');
     console.log(storedToken);
   
     axios

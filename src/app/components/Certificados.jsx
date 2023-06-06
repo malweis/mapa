@@ -4,16 +4,19 @@ import axios from 'axios';
 import Certificado from './Certificado';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import {   getToken } from '../(auth)/reducers/authSlice';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Certificados = () => {
   const [data, setData] = useState([]);
-
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token
   const router = useRouter();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+  
     console.log(storedToken);
     if (storedToken) {
       fetchData(storedToken);

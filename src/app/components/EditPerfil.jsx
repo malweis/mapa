@@ -4,7 +4,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from "react-redux";
+import { getToken } from "../(auth)/reducers/authSlice";
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Texto from "./Texto";
 import SelectList from "./SelectList";
@@ -20,7 +22,8 @@ function EditPerfil() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
 
  
   
@@ -66,7 +69,6 @@ function EditPerfil() {
   const handleSubmit = (e) => {
     e.preventDefault();
     validateEmail();
-    const storedToken = localStorage.getItem('token');
     console.log(storedToken)
     // Proceed with form submission if there are no errors
     if ((!passwordError && !confirmPasswordError) || !emailError) {

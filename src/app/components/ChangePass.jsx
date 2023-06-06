@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
-
 import Link from "next/link";
-import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from "react-redux";
+import { getToken } from "../(auth)/reducers/authSlice";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Texto from '../components/Texto'
 
@@ -14,7 +15,8 @@ function ChangePass() {
   const [password, setPassword] = useState('');
   const [newpassword, setnewpassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
   const router = useRouter();
 
 
@@ -49,8 +51,8 @@ function ChangePass() {
 
   
   const login = async () => {
-    const storedToken = localStorage.getItem('token');
 
+      console.log(storedToken)
     try {
       const response = await axios.post(
         'http://192.168.16.90:8000/api/cambiar-password/',

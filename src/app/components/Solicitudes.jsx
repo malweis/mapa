@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { getToken } from '../(auth)/reducers/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +12,8 @@ const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-  
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
 
   useEffect(() => {
     getAndSetData();
@@ -33,7 +36,6 @@ const Solicitudes = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     if (!isChecked) {
-      const storedToken = localStorage.getItem('token');
       axios.get('http://192.168.16.90:8000/api/solicitudes-protegido', {
         headers: {
           Authorization: `Bearer ${storedToken}`

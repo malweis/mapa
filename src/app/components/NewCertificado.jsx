@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import {   getToken } from '../(auth)/reducers/authSlice';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function NewCertificado() {
@@ -10,7 +12,8 @@ function NewCertificado() {
     const [locales, setLocales] = useState({ data: [] });
     const [loading, setLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState('');
-    
+    const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
     
 
     
@@ -29,7 +32,6 @@ function NewCertificado() {
       };
     
       // Make a POST request to the API endpoint using Axios
-      const storedToken = localStorage.getItem('token');
       console.log(storedToken);
     
       axios

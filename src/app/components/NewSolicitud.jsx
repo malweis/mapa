@@ -5,7 +5,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../(auth)/reducers/authSlice";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function NewSolicitud() {
@@ -14,6 +16,20 @@ function NewSolicitud() {
   const [selectedDate, setSelectedDate] = useState("");
   const wholeState = useSelector(getToken); // Access the token value from the Redux store
   const storedToken = wholeState.payload.token;
+  const router = useRouter();
+
+
+
+  useEffect(() => {
+    console.log(storedToken);
+
+    if (storedToken) {
+    } else {
+      router.push('/Login');
+    }
+  }, []);
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import {   getToken } from '../(auth)/reducers/authSlice';
 import {  toast } from 'react-toastify';
@@ -17,7 +18,18 @@ function NewCertificado() {
     
 
     
-  
+  const router = useRouter();
+
+
+
+  useEffect(() => {
+    console.log(storedToken);
+
+    if (storedToken) {
+    } else {
+      router.push('/Login');
+    }
+  }, []);
     
     const handleSubmit = (e) => {
       e.preventDefault();

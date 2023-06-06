@@ -17,14 +17,12 @@ function Perfil() {
   const wholeState = useSelector(getToken); // Access the token value from the Redux store
   const storedToken = wholeState.payload.token;
   const storedUser = wholeState.payload.user;
-  console.log(storedToken);
   const router = useRouter();
 
 
 
   useEffect(() => {
     console.log(storedToken);
-    console.log(wholeState.payload.user.id)
 
     if (storedToken) {
     } else {

@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import CustomButton from './CustomButtons'
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
+import {   getToken } from '../(auth)/reducers/authSlice';
 
 function Header() {
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token;
   const router = usePathname();
 
   const toggleNav = () => {
@@ -18,9 +22,14 @@ function Header() {
     { href: '/Solicitudes', name: 'Solicitudes', id: 1 },
     { href: '/Mapa', name: 'Mapa' , id: 2},
     { href: '/Perfil', name: 'Perfil' , id: 3 },
-    { href: '/Login', name: 'Login' , id: 4 },
     { href: '/Certificados', name: 'Certificados' , id: 5 },
+    
   ];
+
+  if (!storedToken) {
+ 
+    navLinks.push({ href: '/Login', name: 'Login', id: 4 });
+  }
   return (
     <header className=" flex justify-center md:flex-row heads md:items-center md:bg-red-600 md:w-full md:pr-5 md:pl-5">
    

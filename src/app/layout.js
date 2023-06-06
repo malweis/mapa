@@ -22,15 +22,18 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <div className='main h-full w-full'>
+        <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}> {/* Wrap your components with PersistGate */}
+
           <Header />
           <SSRProvider>
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}> {/* Wrap your components with PersistGate */}
                 {children}
-              </PersistGate>
-            </Provider>
+         
           </SSRProvider>
           <ToastContainer />
+          </PersistGate>
+
+          </Provider>
         </div>
       </body>
     </html>

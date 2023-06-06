@@ -1,11 +1,14 @@
+"use client"
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from './components/Header'
 import { SSRProvider } from 'react-aria';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Provider } from 'react-redux'; // Import Provider from react-redux
-import store from './store'; // Import your Redux store
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
+import { persistor, store } from './(auth)/store'; // Import your Redux store and persistor
+
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
@@ -21,12 +24,13 @@ export default function RootLayout({ children }) {
         <div className='main h-full w-full'>
           <Header />
           <SSRProvider>
-            <Provider store={store}> {/* Wrap your components with Provider */}
-              {children}
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}> {/* Wrap your components with PersistGate */}
+                {children}
+              </PersistGate>
             </Provider>
           </SSRProvider>
           <ToastContainer />
-
         </div>
       </body>
     </html>

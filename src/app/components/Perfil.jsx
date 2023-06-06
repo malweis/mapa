@@ -3,60 +3,69 @@ import React, { useState, useEffect } from 'react';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import logout from "../actions/actions";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { logOut, selectedToken, getUser, getToken } from '../(auth)/reducers/authSlice';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function Perfil() {
   const [data, setData] = useState([]);
+
+  const dispatch = useDispatch(); // Get the token from the state using the getToken selector
+  const wholeState = useSelector(getToken); // Access the token value from the Redux store
+  const storedToken = wholeState.payload.token
+  console.log(storedToken);
   const router = useRouter();
 
 
+
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
     console.log(storedToken);
 
     if (storedToken) {
       fetchData(storedToken);
     } else {
-      router.push('/login')
+      router.push('/Login');
     }
   }, []);
 
 
+
   const handleResetToken = () => {
     // Reset the token
-    localStorage.removeItem('token');
-    router.push('/')
+    dispatch(logOut());
 
-      toast.info('Session cerrada correctamente');
- 
+    // Reset the token stored locally in the browser
+    localStorage.removeItem('token');
+  
+    router.push('/');
+  
+    toast.info('Session cerrada correctamente');
     // Perform any other desired actions after resetting the token
   };
-  const fetchData = async (storedToken) => {
+  const fetchData = async (token) => {
+    console.log("el token" + token)
     try {
       const response = await axios.get('http://192.168.16.90:8000/api/user/', {
         headers: {
-          Authorization: `Bearer ${storedToken}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-  
-      const responseData = response.data;
-      
-  
-      if (responseData ) {
-        setData(responseData);
-      
-      } else {
-        console.error('Error: Invalid response data or user ID mismatch');
-      }
+      setData(response.data);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    router.push('/login');
+  };
+
   
   
   

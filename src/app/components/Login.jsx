@@ -1,8 +1,15 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { login } from '../actions';
+import { useRouter } from 'next/navigation';
+
+import axios from "axios";
+import Link from "next/link";
+import Image from "next/image";
 import { toast } from 'react-toastify';
+import { setToken, setUser } from "../(auth)/reducers/authSlice";
+import icono from "../../../public/assets/Imagenes/donacion-de-sangre (1) 1.imageset/donacion-de-sangre (1).png"
+
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -12,6 +19,8 @@ function Login() {
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const router = useRouter();
+
   const dispatch = useDispatch();
 
   const handlePasswordChange = (e) => {
@@ -40,24 +49,36 @@ function Login() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    validateEmail();
-    validatePassword();
   
-    if (!passwordError && !emailError) {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  validateEmail();
+  validatePassword();
+
+  if (!passwordError && !emailError) {
+   
+
       try {
-        await dispatch(login(email, password));
-        // Login successful
-        toast.success('Login successful');
-        // Redirect to the desired page
-        // You can use useRouter() hook from Next.js for navigation
-      } catch (error) {
-        // Login failed
-        toast.error('Login failed. Please try again.') + error;
-      }
+        const response = await axios.post('http://192.168.16.90:8000/api/login', {
+          email: email,
+          password: password,
+        });
+  
+        const { token, user } = response.data;
+  
+        dispatch(setToken(token));
+        dispatch(setUser(user));
+
+        toast.success('Login aprobado')
+          router.push('/Perfil');
+    } catch (error) {
+      // Login failed
+      console.error('Error:', error);
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
+      toast.error(errorMessage);
     }
-  };
+  }
+};
   
 
   return (

@@ -10,7 +10,7 @@ function NewCertificado() {
     const [locales, setLocales] = useState({ data: [] });
     const [loading, setLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState('');
- 
+    
     
 
     

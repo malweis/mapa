@@ -106,7 +106,9 @@ function NewSolicitud() {
           setLoading(false);
         })
         .catch((error) => {
-          console.error("Error fetching locales:", error);
+          console.error('Error:', error);
+          const errorMessage = error.response.data.message || 'Ocurrió un error';
+          toast.error(errorMessage);
         });
     };
 

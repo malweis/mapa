@@ -124,10 +124,9 @@ function Register() {
   })
   .catch((error) => {
     // Handle error during API request
-    console.error(error);
-
-    // Display error toast notification
-    toast.error('Hubo un error en el proceso de registro', + error);
+    console.error('Error:', error);
+    const errorMessage = error.response.data.message || 'Ocurrió un error';
+    toast.error(errorMessage);
   });
 
     }

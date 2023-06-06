@@ -13,6 +13,9 @@ const Certificados = () => {
   const wholeState = useSelector(getToken); // Access the token value from the Redux store
   const storedToken = wholeState.payload.token
 
+  useEffect(() => {
+    fetchData(storedToken);
+  }, [storedToken]);
 
   const fetchData = async (storedToken) => {
     console.log(storedToken);
@@ -34,8 +37,9 @@ const Certificados = () => {
         toast.error('No hay registros'); // Display error notification
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Ocurrió un error: ' + error); // Display error notification
+         console.error('Error:', error);
+          const errorMessage = error.response.data.message || 'Ocurrió un error';
+          toast.error(errorMessage);// Display error notification
     }
   };
 

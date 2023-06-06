@@ -60,11 +60,9 @@ function NewCertificado() {
           e.target.reset();
         })
         .catch((error) => {
-          // Display error toast notification
-          toast.error('Ocurrio un error' , error);
-    
-          // Handle error during API request
-          console.error(error);
+          console.error('Error:', error);
+          const errorMessage = error.response.data.message || 'Ocurrió un error';
+          toast.error(errorMessage);
         });
     };
     

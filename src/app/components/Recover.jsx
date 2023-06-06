@@ -40,7 +40,8 @@ function Recover() {
 
       } catch (error) {
         console.error('Error:', error);
-        toast.error('Un error ocurrio durante el envio', error);
+        const errorMessage = error.response.data.message || 'Ocurrió un error';
+        toast.error(errorMessage);
         // Handle error response
       }
     }

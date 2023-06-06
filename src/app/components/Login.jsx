@@ -1,16 +1,10 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import axios from "axios";
+"use client"
+import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { setToken } from "../actions/actions";
-
-import Link from "next/link";
-import Image from "next/image";
-import icono from "../../../public/assets/Imagenes/donacion-de-sangre (1) 1.imageset/donacion-de-sangre (1).png"
-import { ToastContainer, toast } from 'react-toastify';
+import { login } from '../actions';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,87 +12,50 @@ function Login() {
   const [passwordError, setPasswordError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const router = useRouter();
   const dispatch = useDispatch();
-
-
-
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-
   const validatePassword = () => {
-    // Define your password validation rules here
-    // For example, at least 8 characters with at least one uppercase, one lowercase, and one digit
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!passwordRegex.test(password)) {
-      setPasswordError('Las contraseñas deben tener al menos 8 caracteres , una mayuscula , una minuscula y un numero');
+      setPasswordError('Las contraseñas deben tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
     } else {
       setPasswordError('');
     }
   };
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
-  useEffect(() => {
-    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-   
-
-    // Set the default X-CSRF-TOKEN header for all requests
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-  }, [])
-
-  
-  const login = async () => {
-   
-
-
-    const login = async () => {
-      try {
-        const response = await axios.post('http://192.168.16.90:8000/api/login', {
-          email: email,
-          password: password
-        });
-  
-        const { token, user } = response.data;
-  
-        // Dispatch the action to set the token in Redux
-        dispatch(setToken(token));
-  
-        // Redirect to '/perfil' page
-        toast.success('Ingreso exitoso');
-        router.push('/perfil');
-      } catch (error) {
-        console.error('Error:', error);
-        const errorMessage = error.response.data.message || 'Ocurrio un error';
-        toast.error(errorMessage);
-      }
-    };
-  
-  
-
   const validateEmail = () => {
-    // Regular expression for email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError('Ingrese un correo valido');
+      setEmailError('Ingrese un correo válido');
     } else {
       setEmailError('');
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     validateEmail();
     validatePassword();
   
-
-    // Proceed with form submission if there are no errors
-    if (!passwordError || !emailError) {
-      // Perform form submission logic here
+    if (!passwordError && !emailError) {
+      try {
+        await dispatch(login(email, password));
+        // Login successful
+        toast.success('Login successful');
+        // Redirect to the desired page
+        // You can use useRouter() hook from Next.js for navigation
+      } catch (error) {
+        // Login failed
+        toast.error('Login failed. Please try again.') + error;
+      }
     }
   };
   
@@ -213,7 +170,6 @@ function Login() {
                   text-gray-100
                   focus:outline-none
                 "
-                onClick={login}
             >
               Login
             </button>
@@ -225,5 +181,6 @@ function Login() {
     </>
   );
 }
+
 
 export default Login;
